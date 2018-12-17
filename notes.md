@@ -14,7 +14,7 @@ My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/p
 ### papers
 [Building Generalizable Agents with a Realistic and Rich 3D Environment](https://arxiv.org/pdf/1801.02209.pdf)
 <img alt="DDPG framework" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/img1_Building%20Generalizable%20Agents%20with%20a%20Realistic%20and%20Rich%203D%20Environment.jpg"  width="800"> <br>
-* environment <br>
+* Environment <br>
 House3D
 * Success measure <br>
 To declare success, we want to ensure that the agent
@@ -23,5 +23,5 @@ is  located  inside  the  target  room;  (2) the  agent  consecutively sees a  d
 * Reward <br>
 -0.1(collision penalty) -0.1*timestep +10(success reward) <br>
 original reward is too sparse, do reward shaping for each step: the difference of shortest distances between the agent's movement.
-* result
+* result <br>
 Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environments
