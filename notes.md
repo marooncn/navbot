@@ -13,7 +13,7 @@ My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/p
 <img alt="simulation framework" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/simulation%20framework.png"  width="500"> <br>
 <img alt=" summary of popular environments" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/%20summary%20of%20popular%20environments.png"  width="500"> <br>
 
-### papers
+### Papers
 [Building Generalizable Agents with a Realistic and Rich 3D Environment](https://arxiv.org/pdf/1801.02209.pdf)
 <img alt="DDPG framework" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/img1_Building%20Generalizable%20Agents%20with%20a%20Realistic%20and%20Rich%203D%20Environment.jpg"  width="800"> <br>
 * Environment <br>
