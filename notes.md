@@ -1,6 +1,6 @@
 ### Basics
 #### RL
-My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/paper%20reading/Reinforcement%20Learning.md) about Reinforcement Learning.
+My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/paper%20reading/Reinforcement%20Learning.md) of Reinforcement Learning.
 #### Simutation Environment
 [gym-gazebo](https://github.com/erlerobot/gym-gazebo)(Erle Robotics 2016) <br>
 [DeepMind Lab](https://github.com/deepmind/lab)(DeepMind 2016) <br>
@@ -27,3 +27,4 @@ is  located  inside  the  target  room;  (2) the  agent  consecutively sees a  d
 original reward is too sparse, do reward shaping for each step: the difference of shortest distances between the agent's movement.
 * result <br>
 Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environments
+
