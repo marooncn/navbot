@@ -2,6 +2,8 @@
 #### RL
 My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/paper%20reading/Reinforcement%20Learning.md) about Reinforcement Learning.
 #### Simutation Environment
+[gym-gazebo](https://github.com/erlerobot/gym-gazebo)(Erle Robotics 2016) <br>
+[DeepMind Lab](https://github.com/deepmind/lab)(DeepMind 2016) <br>
 [SUNGG](http://suncg.cs.princeton.edu/)(Princeton 2017) <br>
 [Matterport3D](https://github.com/niessner/Matterport)(Princeton etc 2017) <br>
 [AI2-THOR](https://github.com/allenai/ai2thor)(AI2 2017) <br>
