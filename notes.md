@@ -34,7 +34,7 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 ### Agent architecture
 #### purely reactive sensory input 
 (sensory input-> DNN -> action) <br>
-[learning to act by predicting the future](https://arxiv.org/pdf/1611.01779.pdf)(ICLR 2017) <br>
+[learning to act by predicting the future](https://arxiv.org/pdf/1611.01779.pdf)([code](https://github.com/IntelVCL/DirectFuturePrediction), ICLR 2017) <br>
 [Target-driven visual navigation in indoor  scenes  using  deep  reinforcement  learning](https://arxiv.org/pdf/1609.05143.pdf)([code](https://github.com/yushu-liu/icra2017-visual-navigation), ICRA 2017) <br>
 #### equip with short-term memory
 [reinforcement learning with unsupervised auxiliary tasks](https://arxiv.org/pdf/1611.05397.pdf)([code](https://github.com/miyosuda/unreal), ICLR 2017) <br>
