@@ -41,7 +41,7 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 [Playing FPS Games with Deep Reinforcement Learning](https://arxiv.org/pdf/1609.05521.pdf)(AAAI 2017) <br>
 [Learning to navigate in complex environments](https://arxiv.org/pdf/1611.03673.pdf)(ICLR 2017) <br>
 #### internal representations
-use more advanced memory mechanisms that support the construction of rich internal representations of the agent's environment <br>
+(use more advanced memory mechanisms that support the construction of rich internal representations of the agent's environment) <br>
 [Semi-parametric topological memory for navigation](https://arxiv.org/pdf/1803.00653.pdf)([code](https://github.com/nsavinov/SPTM), ICLR 2018) <br>
 [Cognitive mapping and planning for visual navigation](https://arxiv.org/pdf/1702.03920.pdf)(CVPR 2017) <br>
 [Unifying map and landmark based representations for visual navigation](https://arxiv.org/pdf/1712.08125.pdf)(arXiv 2017) <br>
