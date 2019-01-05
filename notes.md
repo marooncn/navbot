@@ -35,16 +35,16 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 #### purely reactive sensory input 
 (sensory input-> DNN -> action) <br>
 [learning to act by predicting the future](https://arxiv.org/pdf/1611.01779.pdf)(ICLR 2017) <br>
-[Target-driven visual navigation in indoor  scenes  using  deep  reinforcement  learning](https://arxiv.org/pdf/1609.05143.pdf)(ICRA 2017) <br>
+[Target-driven visual navigation in indoor  scenes  using  deep  reinforcement  learning](https://arxiv.org/pdf/1609.05143.pdf)([code](https://github.com/yushu-liu/icra2017-visual-navigation), ICRA 2017) <br>
 #### equip with short-term memory
-[reinforcement learning with unsupervised auxiliary tasks](https://arxiv.org/pdf/1611.05397.pdf)(ICLR 2017) <br>
-[Playing FPS Games with Deep Reinforcement Learning](https://arxiv.org/pdf/1609.05521.pdf)(AAAI 2017) <br>
+[reinforcement learning with unsupervised auxiliary tasks](https://arxiv.org/pdf/1611.05397.pdf)([code](https://github.com/miyosuda/unreal), ICLR 2017) <br>
+[Playing FPS Games with Deep Reinforcement Learning](https://arxiv.org/pdf/1609.05521.pdf)([code](https://github.com/glample/Arnold), AAAI 2017) <br>
 [Learning to navigate in complex environments](https://arxiv.org/pdf/1611.03673.pdf)(ICLR 2017) <br>
 #### internal representations
 (use more advanced memory mechanisms that support the construction of rich internal representations of the agent's environment) <br>
-[Semi-parametric topological memory for navigation](https://arxiv.org/pdf/1803.00653.pdf)([code](https://github.com/nsavinov/SPTM), ICLR 2018) <br>
+[Control of memory,  active perception,  and action in Minecraft](https://web.eecs.umich.edu/~baveja/Papers/ICML2016.pdf)(ICML 2016) <br>
 [Cognitive mapping and planning for visual navigation](https://arxiv.org/pdf/1702.03920.pdf)(CVPR 2017) <br>
 [Unifying map and landmark based representations for visual navigation](https://arxiv.org/pdf/1712.08125.pdf)(arXiv 2017) <br>
-[Control of memory,  active perception,  and action in Minecraft](https://web.eecs.umich.edu/~baveja/Papers/ICML2016.pdf)(ICML 2016) <br>
 [Neural map:  Structured memory for deep reinforcement learning](https://arxiv.org/pdf/1702.08360.pdf)(ICLR 2018) <br>
+[Semi-parametric topological memory for navigation](https://arxiv.org/pdf/1803.00653.pdf)([code](https://github.com/nsavinov/SPTM), ICLR 2018) <br>
 
