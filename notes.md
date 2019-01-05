@@ -13,7 +13,7 @@ My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/p
 <img alt="simulation framework" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/simulation%20framework.png"  width="500"> <br>
 <img alt=" summary of popular environments" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/%20summary%20of%20popular%20environments.png"  width="500"> <br>
 
-### Papers
+### Papers 
 [Building Generalizable Agents with a Realistic and Rich 3D Environment](https://arxiv.org/pdf/1801.02209.pdf)
 <img alt="DDPG framework" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/img1_Building%20Generalizable%20Agents%20with%20a%20Realistic%20and%20Rich%203D%20Environment.jpg"  width="800"> <br>
 * Environment <br>
@@ -27,4 +27,24 @@ is  located  inside  the  target  room;  (2) the  agent  consecutively sees a  d
 original reward is too sparse, do reward shaping for each step: the difference of shortest distances between the agent's movement.
 * result <br>
 Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environments
+
+
+[On Evaluation of Embodied Navigation Agents](https://arxiv.org/pdf/1807.06757.pdf)(arxiv 2018) <br>
+
+### Agent architecture
+#### purely reactive sensory input 
+(sensory input-> DNN -> action) <br>
+[learning to act by predicting the future](https://arxiv.org/pdf/1611.01779.pdf)(ICLR 2017) <br>
+[Target-driven visual navigation in indoor  scenes  using  deep  reinforcement  learning](https://arxiv.org/pdf/1609.05143.pdf)(ICRA 2017) <br>
+#### equip with short-term memory
+[reinforcement learning with unsupervised auxiliary tasks](https://arxiv.org/pdf/1611.05397.pdf)(ICLR 2017) <br>
+[Playing FPS Games with Deep Reinforcement Learning](https://arxiv.org/pdf/1609.05521.pdf)(AAAI 2017) <br>
+[Learning to navigate in complex environments](https://arxiv.org/pdf/1611.03673.pdf)(ICLR 2017) <br>
+#### internal representations
+use more advanced memory mechanisms that support the construction of rich internal representations of the agent's environment <br>
+[Semi-parametric topological memory for navigation](https://arxiv.org/pdf/1803.00653.pdf)([code](https://github.com/nsavinov/SPTM), ICLR 2018) <br>
+[Cognitive mapping and planning for visual navigation](https://arxiv.org/pdf/1702.03920.pdf)(CVPR 2017) <br>
+[Unifying map and landmark based representations for visual navigation](https://arxiv.org/pdf/1712.08125.pdf)(arXiv 2017) <br>
+[Control of memory,  active perception,  and action in Minecraft](https://web.eecs.umich.edu/~baveja/Papers/ICML2016.pdf)(ICML 2016) <br>
+[Neural map:  Structured memory for deep reinforcement learning](https://arxiv.org/pdf/1702.08360.pdf)(ICLR 2018) <br>
 
