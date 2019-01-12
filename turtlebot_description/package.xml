@@ -1,0 +1,24 @@
+<package>
+  <name>turtlebot_description</name>
+  <version>2.4.2</version>
+  <description>
+     a revised compact version of official turtlebot_description package for check if collision happened between turtlebot and obstacles in Gazebo by adding libgazebo_ros_bumper.so plugin in kobuki_gazebo.urdf.xacro file. The original file is from turtlebot_description and kobuki_description package.
+  </description>
+  <author>Liulong Ma</author>
+  <author email="LiulongMa@outlook.com">Liulong Ma</author>
+  <maintainer email="LiulongMa@outlook.com">Liulong Ma</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/turtlebot_description</url>
+  <url type="repository">https://github.com/turtlebot/turtlebot</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot/issues</url>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+
+  <run_depend>urdf</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>kobuki_description</run_depend>
+  <run_depend>create_description</run_depend>
+</package>
