@@ -2,14 +2,16 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import rospy
+import tf
 import roslaunch
-from gym_gazebo.envs import gazebo_env
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Empty
 from sensor_msgs.msg import Image
 # from sensor_msgs.msg import LaserScan
 from gazebo_msgs.msg import ContactsState
-from gazebo_msgs.msg import ModelStates
+from gazebo_msgs.msg import ModelState
+from gazebo_msgs.srv import GetModelState
+from gazebo_msgs.srv import SetModelState
 
 from tensorforce.environments import Environment
 import numpy as np
@@ -36,19 +38,34 @@ class GazeboMaze(Environment):
         self.continuous = continuous
         self.goal_space = config.goal_space[maze_id]
         self.start_space = config.start_space[maze_id]
-        # Launch the simulation with the given launchfile name
-        gazebo_env.GazeboEnv.__init__(self, "nav_gazebo.launch maze_id:={}".format(self.maze_id))
+        # Launch the simulation with the given launch file name
+        '''
+        uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+        cli_args = ['rl_nav', 'nav_gazebo.launch']  # , 'maze_id:={}'.format(self.maze_id)]
+        roslaunch_args = cli_args[2:]
+        roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args), roslaunch_args)]
+        launch = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
+        launch.start()        
+        '''
+
+        uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+        roslaunch.configure_logging(uuid)
+        self.launch = roslaunch.parent.ROSLaunchParent(uuid, ['/home/maroon/catkin_ws/src/rl_nav/launch/nav_gazebo.launch'])
+        self.launch.start()
+
         self.vel_pub = rospy.Publisher('/mobile_base/commands/velocity', Twist, queue_size=5)
         self.unpause = rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
         self.pause = rospy.ServiceProxy('/gazebo/pause_physics', Empty)
         self.reset_proxy = rospy.ServiceProxy('/gazebo/reset_simulation', Empty)
-        self.set_state = rospy.ServiceProxy('/')
-        self.reward_range = (-np.inf, np.inf)
+        self.get_state = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
+        self.set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+        '''
         self.goal = self.goal_space[np.random.choice(len(self.goal_space))]
         start = self.start_space[np.random.choice(len(self.start_space))]
-
+        self.set_start(start[0], start[1], np.random.uniform(0, 2*math.pi))
         d0, theta0 = self.rectangular2polar(self.goal[0]-start[0], self.goal[1]-start[1])
-        self.p = [d0, theta0]  # relative target position
+        self.p = [d0, theta0]  # relative target position        
+        '''
 
         self.img_rows = 64
         self.img_cols = 48
@@ -65,7 +82,7 @@ class GazeboMaze(Environment):
         """
         Close environment. No other method calls possible afterwards.
         """
-        rospy.wait_for_service('/gazebo/pause_physics')
+        self.launch.shutdown()
 
     def seed(self, seed):
         """
@@ -89,8 +106,10 @@ class GazeboMaze(Environment):
         # Resets the state of the environment and returns an initial observation.
         self.goal = self.goal_space[np.random.choice(len(self.goal_space))]
         start = self.start_space[np.random.choice(len(self.start_space))]
+        # self.set_start(start[0], start[1], np.random.uniform(0, 2*math.pi))
         d0, theta0 = self.rectangular2polar(self.goal[0] - start[0], self.goal[1] - start[1])
         self.p = [d0, theta0]  # relative target position
+
         rospy.wait_for_service('/gazebo/reset_simulation')
         try:
             # reset_proxy.call()
@@ -102,15 +121,15 @@ class GazeboMaze(Environment):
         rospy.wait_for_service('/gazebo/unpause_physics')
         try:
             # resp_pause = pause.call()
-            self.unpause()
+            #self.unpause()
+            rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
         except rospy.ServiceException:
             print("/gazebo/unpause_physics service call failed")
 
         image_data = None
-        success = False
         cv_image = None
-        while image_data is None or success is False:
-            image_data = rospy.wait_for_message('/camera/rgb/image_raw', Image, timeout=5)
+        while image_data is None:
+            image_data = rospy.wait_for_message('/camera/rgb/image_raw', Image)
             # h = image_data.height
             # w = image_data.width
             cv_image = CvBridge().imgmsg_to_cv2(image_data, "bgr8")
@@ -134,7 +153,7 @@ class GazeboMaze(Environment):
         Executes action, observes next state(s) and reward.
 
         Args:
-            actions: Actions to execute.
+            action: Actions to execute.
 
         Returns:
             Tuple of (next state, bool indicating terminal, reward)
@@ -163,9 +182,19 @@ class GazeboMaze(Environment):
 
         self.vel_pub.publish(vel_cmd)
 
-        success = False
         done = False
         reward = 0
+        image_data = None
+        cv_image = None
+
+        while image_data is None:
+            image_data = rospy.wait_for_message('/camera/rgb/image_raw', Image, timeout=5)
+            cv_image = CvBridge().imgmsg_to_cv2(image_data, "bgr8")
+
+        if self.img_channels == 1:
+            cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+        # cv_image = cv2.resize(cv_image, (self.img_rows, self.img_cols))
+        state = cv_image
 
         contact_data = None
         while contact_data is None:
@@ -176,28 +205,26 @@ class GazeboMaze(Environment):
             reward = r_collision
         print(collision, contact_data.states)
 
-        robot_data = None
-        while robot_data is None:
-            robot_data = rospy.wait_for_message('/gazebo/model_states', ModelStates, timeout=5)
-        pos = robot_data.pose[2].position
+        robot_state = None
+        rospy.wait_for_service('/gazebo/get_model_state')
+        try:
+            get_state = self.get_state()
+            robot_state = get_state("robot", "world")  # "robot" relative to "world"
+            assert robot_state.success is True
+        except rospy.ServiceException:
+            print("/gazebo/get_model_state service call failed")
+
+        pos = robot_state.pose.position
         d_x = self.goal[0] - pos[0]
         d_y = self.goal[1] - pos[1]
         d, theta = self.rectangular2polar(d_x, d_y)
         if d < Cd:
-            success = True
             done = True
             reward = r_arrive
 
         if not done:
             delta_d = self.p[0] - d
             reward = Cr*delta_d
-        self.p = [d, theta]
-
-        image_data = None
-        cv_image = None
-        while image_data is None or success is False:
-            image_data = rospy.wait_for_message('/camera/rgb/image_raw', Image, timeout=5)
-            cv_image = CvBridge().imgmsg_to_cv2(image_data, "bgr8")
 
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
@@ -206,13 +233,9 @@ class GazeboMaze(Environment):
         except rospy.ServiceException:
             print("/gazebo/pause_physics service call failed")
 
-        if self.img_channels == 1:
-            cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-        cv_image = cv2.resize(cv_image, (self.img_rows, self.img_cols))
+        self.p = [d, theta]
 
-        state = cv_image
-
-        return state, reward, done, self.p
+        return state, done, reward
 
     @property
     def states(self):
@@ -248,3 +271,32 @@ class GazeboMaze(Environment):
         d = math.sqrt(d_x * d_x + d_y * d_y)
         theta = math.atan2(d_y, d_x)
         return d, theta
+
+    def set_start(self, x, y, theta):
+        state = ModelState()
+        state.model_name = 'robot'
+        state.reference_frame = 'world' # ''ground_plane'
+        # pose
+        state.pose.position.x = x
+        state.pose.position.y = y
+        state.pose.position.z = 0
+        quaternion = tf.transformations.quaternion_from_euler(0, 0, theta)
+        state.pose.orientation.x = quaternion[0]
+        state.pose.orientation.y = quaternion[1]
+        state.pose.orientation.z = quaternion[2]
+        state.pose.orientation.w = quaternion[3]
+        # twist
+        state.twist.linear.x = 0
+        state.twist.linear.y = 0
+        state.twist.linear.z = 0
+        state.twist.angular.x = 0
+        state.twist.angular.y = 0
+        state.twist.angular.z = 0
+
+        rospy.wait_for_service('/gazebo/set_model_state')
+        try:
+            set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+            result = set_state(state)
+            assert result.success is True
+        except rospy.ServiceException:
+            print("/gazebo/get_model_state service call failed")

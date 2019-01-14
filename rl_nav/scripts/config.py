@@ -7,7 +7,7 @@ goal_space = []
 start_space = []
 goal_space_nav0 = [[-2.8, -4.0]]
 goal_space.append(goal_space_nav0)
-start_space_nav0 = [[1., -3.], [1., -4.], [0, -4.], [0, -1.8], [-1, -3], [-1.8, -3.5], [-2., -4.], [-2.6, -3.]]
+start_space_nav0 = [[-2.6, -3.]] # [[1., -3.], [1., -4.], [0, -4.], [0, -1.8], [-1, -3], [-1.8, -3.5], [-2., -4.], [-2.6, -3.]]
 start_space.append(start_space_nav0)
 Cd = 0.02
 # max linear velocity
