@@ -10,4 +10,4 @@
 [gazebo](http://wiki.ros.org/gazebo) <br>
 [roslaunch python API](http://wiki.ros.org/roslaunch/API%20Usage) <br>
 [turtlebot_description](https://github.com/turtlebot/turtlebot/tree/kinetic/turtlebot_description) <br>
-[kobuki_description](https://github.com/yujinrobot/kobuki_description) <br>
+[kobuki_description](https://github.com/yujinrobot/kobuki/tree/devel/kobuki_description) <br>
