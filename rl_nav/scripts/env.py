@@ -16,9 +16,9 @@ from gazebo_msgs.srv import SetModelState
 from tensorforce.environments import Environment
 import numpy as np
 import math
+import time
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
-
 import config
 # reward parameter
 r_arrive = config.r_arrive
@@ -52,6 +52,8 @@ class GazeboMaze(Environment):
         roslaunch.configure_logging(uuid)
         self.launch = roslaunch.parent.ROSLaunchParent(uuid, ['/home/maroon/catkin_ws/src/rl_nav/launch/nav_gazebo.launch'])
         self.launch.start()
+        rospy.init_node('env_node')
+        time.sleep(10)
 
         self.vel_pub = rospy.Publisher('/mobile_base/commands/velocity', Twist, queue_size=5)
         self.unpause = rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
@@ -67,9 +69,9 @@ class GazeboMaze(Environment):
         self.p = [d0, theta0]  # relative target position        
         '''
 
-        self.img_rows = 64
-        self.img_cols = 48
-        self.img_channels = 3
+        self.img_rows = config.input_dim[0]
+        self.img_cols = config.input_dim[1]
+        self.img_channels = config.input_dim[2]
         self._states = dict(shape=(self.img_rows, self.img_cols, self.img_channels), type='float')
         self._actions = dict(num_actions=3, type='int')
         if self.continuous:
@@ -106,22 +108,21 @@ class GazeboMaze(Environment):
         # Resets the state of the environment and returns an initial observation.
         self.goal = self.goal_space[np.random.choice(len(self.goal_space))]
         start = self.start_space[np.random.choice(len(self.start_space))]
-        # self.set_start(start[0], start[1], np.random.uniform(0, 2*math.pi))
+        self.set_start(start[0], start[1], np.random.uniform(0, 2*math.pi))
         d0, theta0 = self.rectangular2polar(self.goal[0] - start[0], self.goal[1] - start[1])
         self.p = [d0, theta0]  # relative target position
 
         rospy.wait_for_service('/gazebo/reset_simulation')
         try:
             # reset_proxy.call()
-            self.reset_proxy()
+            self.reset_proxy
         except rospy.ServiceException:
             print("/gazebo/reset_simulation service call failed")
 
         # Unpause simulation to make observation
         rospy.wait_for_service('/gazebo/unpause_physics')
         try:
-            # resp_pause = pause.call()
-            #self.unpause()
+            # self.unpause
             rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
         except rospy.ServiceException:
             print("/gazebo/unpause_physics service call failed")
@@ -136,8 +137,7 @@ class GazeboMaze(Environment):
 
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
-            # resp_pause = pause.call()
-            self.pause()
+            self.pause
         except rospy.ServiceException:
             print("/gazebo/pause_physics service call failed")
 
@@ -160,7 +160,7 @@ class GazeboMaze(Environment):
         """
         rospy.wait_for_service('/gazebo/unpause_physics')
         try:
-            self.unpause()
+            self.unpause
         except rospy.ServiceException:
             print("/gazebo/unpause_physics service call failed")
 
@@ -203,20 +203,21 @@ class GazeboMaze(Environment):
         if collision:
             done = True
             reward = r_collision
-        print(collision, contact_data.states)
+        # print(collision, contact_data.states)
 
         robot_state = None
         rospy.wait_for_service('/gazebo/get_model_state')
         try:
-            get_state = self.get_state()
-            robot_state = get_state("robot", "world")  # "robot" relative to "world"
+            get_state = self.get_state   # create a handle for calling the service
+            # use the handle just like a normal function, "robot" relative to "world"
+            robot_state = get_state("robot", "world")
             assert robot_state.success is True
         except rospy.ServiceException:
             print("/gazebo/get_model_state service call failed")
 
         pos = robot_state.pose.position
-        d_x = self.goal[0] - pos[0]
-        d_y = self.goal[1] - pos[1]
+        d_x = self.goal[0] - pos.x
+        d_y = self.goal[1] - pos.y
         d, theta = self.rectangular2polar(d_x, d_y)
         if d < Cd:
             done = True
@@ -229,7 +230,7 @@ class GazeboMaze(Environment):
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
             # resp_pause = pause.call()
-            self.pause()
+            self.pause
         except rospy.ServiceException:
             print("/gazebo/pause_physics service call failed")
 
@@ -275,7 +276,7 @@ class GazeboMaze(Environment):
     def set_start(self, x, y, theta):
         state = ModelState()
         state.model_name = 'robot'
-        state.reference_frame = 'world' # ''ground_plane'
+        state.reference_frame = 'world'  # ''ground_plane'
         # pose
         state.pose.position.x = x
         state.pose.position.y = y
@@ -295,7 +296,7 @@ class GazeboMaze(Environment):
 
         rospy.wait_for_service('/gazebo/set_model_state')
         try:
-            set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+            set_state = self.set_state
             result = set_state(state)
             assert result.success is True
         except rospy.ServiceException:
