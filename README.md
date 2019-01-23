@@ -1,4 +1,6 @@
 # RL-Navigation
+       sudo apt-get install ros-kinetic-gazebo-*
+       sudo apt-get install ros-kinetic-kobuki-description
 
 
 
