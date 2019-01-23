@@ -21,6 +21,7 @@ def main(args):
     action_data = []
     random_generated_int = np.random.randint(0, 2 ** 31 - 1)
     np.random.seed(random_generated_int)
+    episode = 0
     while total_frames < record_frames:
         print('---------------------------')
         obs_sequence = []
@@ -29,7 +30,6 @@ def main(args):
         observation = GazeboMaze.reset()
         done = False
         t = 0
-        episode = 0
 
         while not done:
             action = [np.random.uniform(0, 1), np.random.uniform(-1, 1)]
@@ -55,7 +55,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate new training data')
-    parser.add_argument('--record_frames', type=int, default=100000, help='how many frames you need to record')
+    parser.add_argument('--record_frames', type=int, default=40000, help='how many frames you need to record')
     parser.add_argument('--maze_id', type=int, default=0, help='which maze ')
     args = parser.parse_args()
     main(args)

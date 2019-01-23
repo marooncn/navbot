@@ -2,8 +2,11 @@ import numpy as np
 
 from keras.layers import Input, Conv2D, Flatten, Dense, Conv2DTranspose, Lambda, Reshape
 from keras.models import Model
+from keras.regularizers import l2
 from keras import backend as K
 from keras.callbacks import EarlyStopping
+from keras.optimizers import Adam
+
 
 import sys
 sys.path.append("..")
@@ -11,7 +14,7 @@ import config
 
 INPUT_DIM = config.input_dim
 # Encoder
-CONV_FILTERS = [32, 64, 64, 128]
+CONV_FILTERS = [32, 64, 128, 256]
 CONV_KERNEL_SIZES = [(3, 4), (3, 4), (3, 4), (3, 4)]
 CONV_STRIDES = [2, 2, 2, 2]
 CONV_ACTIVATIONS = ['relu', 'relu', 'relu', 'relu']
@@ -25,8 +28,8 @@ CONV_T_STRIDES = [2, 2, 2, 2]
 CONV_T_ACTIVATIONS = ['relu', 'relu', 'relu', 'sigmoid']
 
 Z_DIM = config.latent_vector_dim
-EPOCHS = 1
-BATCH_SIZE = 64
+EPOCHS = 20
+BATCH_SIZE = 100
 
 
 def sampling(args):
@@ -48,40 +51,40 @@ class VAE():
     def _build(self):
         vae_x = Input(shape=INPUT_DIM)
         vae_c1 = Conv2D(filters=CONV_FILTERS[0], kernel_size=CONV_KERNEL_SIZES[0], strides=CONV_STRIDES[0],
-                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0])(vae_x)
+                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0], kernel_regularizer=l2(0.0001))(vae_x)
         vae_c2 = Conv2D(filters=CONV_FILTERS[1], kernel_size=CONV_KERNEL_SIZES[1], strides=CONV_STRIDES[1],
-                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0])(vae_c1)
+                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[1], kernel_regularizer=l2(0.0001))(vae_c1)
         vae_c3 = Conv2D(filters=CONV_FILTERS[2], kernel_size=CONV_KERNEL_SIZES[2], strides=CONV_STRIDES[2],
-                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0])(vae_c2)
+                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[2], kernel_regularizer=l2(0.0001))(vae_c2)
         vae_c4 = Conv2D(filters=CONV_FILTERS[3], kernel_size=CONV_KERNEL_SIZES[3], strides=CONV_STRIDES[3],
-                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0])(vae_c3)
+                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[3], kernel_regularizer=l2(0.0001))(vae_c3)
 
         vae_z_in = Flatten()(vae_c4)
 
-        vae_z_mean = Dense(Z_DIM)(vae_z_in)
-        vae_z_log_var = Dense(Z_DIM)(vae_z_in)
+        vae_z_mean = Dense(Z_DIM, kernel_regularizer=l2(0.0001))(vae_z_in)
+        vae_z_log_var = Dense(Z_DIM, kernel_regularizer=l2(0.0001))(vae_z_in)
 
         vae_z = Lambda(sampling)([vae_z_mean, vae_z_log_var])
         vae_z_input = Input(shape=(Z_DIM,))
 
         # we instantiate these layers separately so as to reuse them later
-        vae_dense = Dense(1024)
+        vae_dense = Dense(1024, kernel_regularizer=l2(0.0001))
         vae_dense_model = vae_dense(vae_z)
 
         vae_z_out = Reshape((1, 1, DENSE_SIZE))
         vae_z_out_model = vae_z_out(vae_dense_model)
 
         vae_d1 = Conv2DTranspose(filters=CONV_T_FILTERS[0], kernel_size=CONV_T_KERNEL_SIZES[0], padding='valid',
-                                 data_format='channels_last', strides=CONV_T_STRIDES[0], activation=CONV_T_ACTIVATIONS[0])
+                                 data_format='channels_last', strides=CONV_T_STRIDES[0], activation=CONV_T_ACTIVATIONS[0], kernel_regularizer=l2(0.0001))
         vae_d1_model = vae_d1(vae_z_out_model)
         vae_d2 = Conv2DTranspose(filters=CONV_T_FILTERS[1], kernel_size=CONV_T_KERNEL_SIZES[1], padding='valid',
-                                 data_format='channels_last', strides=CONV_T_STRIDES[1], activation=CONV_T_ACTIVATIONS[1])
+                                 data_format='channels_last', strides=CONV_T_STRIDES[1], activation=CONV_T_ACTIVATIONS[1], kernel_regularizer=l2(0.0001))
         vae_d2_model = vae_d2(vae_d1_model)
         vae_d3 = Conv2DTranspose(filters=CONV_T_FILTERS[2], kernel_size=CONV_T_KERNEL_SIZES[2], padding='valid',
-                                 data_format='channels_last', strides=CONV_T_STRIDES[2], activation=CONV_T_ACTIVATIONS[2])
+                                 data_format='channels_last', strides=CONV_T_STRIDES[2], activation=CONV_T_ACTIVATIONS[2], kernel_regularizer=l2(0.0001))
         vae_d3_model = vae_d3(vae_d2_model)
         vae_d4 = Conv2DTranspose(filters=CONV_T_FILTERS[3], kernel_size=CONV_T_KERNEL_SIZES[3], padding='valid',
-                                 data_format='channels_last', strides=CONV_T_STRIDES[3], activation=CONV_T_ACTIVATIONS[3])
+                                 data_format='channels_last', strides=CONV_T_STRIDES[3], activation=CONV_T_ACTIVATIONS[3], kernel_regularizer=l2(0.0001))
         vae_d4_model = vae_d4(vae_d3_model)
 
         # DECODER ONLY
@@ -110,7 +113,8 @@ class VAE():
         def vae_loss(y_true, y_pred):
             return vae_r_loss(y_true, y_pred) + vae_kl_loss(y_true, y_pred)
 
-        vae.compile(optimizer='rmsprop', loss=vae_loss, metrics=[vae_r_loss, vae_kl_loss])
+        optimizer = Adam(lr=0.0001)
+        vae.compile(optimizer=optimizer, loss=vae_loss, metrics=[vae_r_loss, vae_kl_loss])
 
         return (vae, vae_encoder, vae_decoder)
 
@@ -133,6 +137,15 @@ class VAE():
     def save_weights(self, filepath):
         self.model.save_weights(filepath)
 
+    def get_vector(self, obs_data):
+        z = self.encoder.predict(np.array(obs_data))
+        return z
+
+    def get_output(self, obs_data):
+        # output = self.decoder.predict(np.array(z))
+        output = self.model.predict(obs_data)
+        return output
+
     def generate_rnn_data(self, obs_data, action_data):
         rnn_input = []
         rnn_output = []
@@ -147,3 +160,4 @@ class VAE():
         rnn_output = np.array(rnn_output)
 
         return (rnn_input, rnn_output)
+
