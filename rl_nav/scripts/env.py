@@ -143,7 +143,7 @@ class GazeboMaze(Environment):
 
         if self.img_channels == 1:
             cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-        cv_image = cv2.resize(cv_image, (self.img_rows, self.img_cols))
+        cv_image = cv2.resize(cv_image, (self.img_cols, self.img_rows))  # width, height
 
         state = cv_image  # .reshape(1, 1, cv_image.shape[0], cv_image.shape[1])
         return state
@@ -193,7 +193,7 @@ class GazeboMaze(Environment):
 
         if self.img_channels == 1:
             cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-        # cv_image = cv2.resize(cv_image, (self.img_rows, self.img_cols))
+        cv_image = cv2.resize(cv_image, (self.img_cols, self.img_rows))
         state = cv_image
 
         contact_data = None
