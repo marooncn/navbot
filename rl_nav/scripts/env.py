@@ -69,10 +69,10 @@ class GazeboMaze(Environment):
         self.p = [d0, theta0]  # relative target position        
         '''
 
-        self.img_rows = config.input_dim[0]
-        self.img_cols = config.input_dim[1]
+        self.img_height = config.input_dim[0]
+        self.img_width = config.input_dim[1]
         self.img_channels = config.input_dim[2]
-        self._states = dict(shape=(self.img_rows, self.img_cols, self.img_channels), type='float')
+        self._states = dict(shape=(self.img_height, self.img_width, self.img_channels), type='float')
         self._actions = dict(num_actions=3, type='int')
         if self.continuous:
             self._actions = dict(shape=(2, 1), min_value=-1, max_value=1, type='float')
@@ -85,6 +85,7 @@ class GazeboMaze(Environment):
         Close environment. No other method calls possible afterwards.
         """
         self.launch.shutdown()
+        time.sleep(10)
 
     def seed(self, seed):
         """
@@ -143,7 +144,7 @@ class GazeboMaze(Environment):
 
         if self.img_channels == 1:
             cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-        cv_image = cv2.resize(cv_image, (self.img_cols, self.img_rows))  # width, height
+        cv_image = cv2.resize(cv_image, (self.img_width, self.img_height))  # width, height
 
         state = cv_image  # .reshape(1, 1, cv_image.shape[0], cv_image.shape[1])
         return state
@@ -193,7 +194,7 @@ class GazeboMaze(Environment):
 
         if self.img_channels == 1:
             cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
-        cv_image = cv2.resize(cv_image, (self.img_cols, self.img_rows))
+        cv_image = cv2.resize(cv_image, (self.img_width, self.img_height))
         state = cv_image
 
         contact_data = None
