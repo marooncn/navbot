@@ -29,7 +29,7 @@ CONV_T_ACTIVATIONS = ['relu', 'relu', 'relu', 'sigmoid']
 
 Z_DIM = config.latent_vector_dim
 EPOCHS = 2
-BATCH_SIZE = 512
+BATCH_SIZE = 256  # 128  
 
 
 def sampling(args):
@@ -51,7 +51,7 @@ class VAE():
     def _build(self):
         vae_x = Input(shape=INPUT_DIM)
         vae_c1 = Conv2D(filters=CONV_FILTERS[0], kernel_size=CONV_KERNEL_SIZES[0], strides=CONV_STRIDES[0],
-                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0])(vae_x)  # , kernel_regularizer=l2(0.0001))(vae_x)
+                        padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[0])(vae_x)   # , kernel_regularizer=l2(0.0001))(vae_x)
         vae_c2 = Conv2D(filters=CONV_FILTERS[1], kernel_size=CONV_KERNEL_SIZES[1], strides=CONV_STRIDES[1],
                         padding='valid', data_format='channels_last', activation=CONV_ACTIVATIONS[1])(vae_c1)  # , kernel_regularizer=l2(0.0001))(vae_c1)
         vae_c3 = Conv2D(filters=CONV_FILTERS[2], kernel_size=CONV_KERNEL_SIZES[2], strides=CONV_STRIDES[2],
@@ -61,14 +61,14 @@ class VAE():
 
         vae_z_in = Flatten()(vae_c4)
 
-        vae_z_mean = Dense(Z_DIM)(vae_z_in)  # , kernel_regularizer=l2(0.0001)
-        vae_z_log_var = Dense(Z_DIM)(vae_z_in) # , kernel_regularizer=l2(0.0001)
+        vae_z_mean = Dense(Z_DIM)(vae_z_in)  # , kernel_regularizer=l2(0.0001))(vae_z_in) 
+        vae_z_log_var = Dense(Z_DIM)(vae_z_in) # , kernel_regularizer=l2(0.0001))(vae_z_in) 
 
         vae_z = Lambda(sampling)([vae_z_mean, vae_z_log_var])
         vae_z_input = Input(shape=(Z_DIM,))
 
         # we instantiate these layers separately so as to reuse them later
-        vae_dense = Dense(1024)  # , kernel_regularizer=l2(0.0001)
+        vae_dense = Dense(1024)  # , kernel_regularizer=l2(0.0001))
         vae_dense_model = vae_dense(vae_z)
 
         vae_z_out = Reshape((1, 1, DENSE_SIZE))
@@ -118,7 +118,7 @@ class VAE():
         def vae_loss(y_true, y_pred):
             return vae_r_loss(y_true, y_pred) + vae_kl_loss(y_true, y_pred)
 
-        optimizer = Adam(lr=1e-7)
+        optimizer = Adam(lr=1e-4)
         # optimizer = SGD(lr=0.001, decay=1e-4, momentum=0.9, nesterov=True)
         vae.compile(optimizer=optimizer, loss=vae_loss, metrics=[vae_r_loss, vae_kl_loss])
 
