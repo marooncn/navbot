@@ -18,7 +18,7 @@ def main(args):
     print("Generating data for env maze{}".format(maze_id))
     random_generated_int = np.random.randint(0, 2 ** 31 - 1)
     np.random.seed(random_generated_int)
-    for i in range(50):
+    for i in range(100):
         total_frames = 0
         obs_data = []
         action_data = []
@@ -50,8 +50,8 @@ def main(args):
             print("Current dataset contains {} observations".format(total_frames))
 
         print("Saving dataset ...")
-        np.save(dir_name+'/observation'+str(i+4), obs_data)
-        np.save(dir_name+'/action'+str(i+4), action_data)
+        np.save(dir_name+'/observation'+str(i), obs_data)
+        np.save(dir_name+'/action'+str(i), action_data)
     GazeboMaze.close()
 
 
