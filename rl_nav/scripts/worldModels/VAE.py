@@ -138,7 +138,7 @@ class VAE():
                        batch_size=BATCH_SIZE,
                        callbacks=callbacks_list)
 
-        self.model.save_weights(config.vae_weight + str(j) + '_' + str(i) + '.h5')
+        self.model.save_weights('./models/vae_weights_' + str(j) + '_' + str(i) + '.h5')
 
     def save_weights(self, filepath):
         self.model.save_weights(filepath)
