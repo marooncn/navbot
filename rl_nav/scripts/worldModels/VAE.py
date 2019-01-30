@@ -118,7 +118,7 @@ class VAE():
         def vae_loss(y_true, y_pred):
             return vae_r_loss(y_true, y_pred) + vae_kl_loss(y_true, y_pred)
 
-        optimizer = Adam(lr=1e-4)
+        optimizer = Adam(lr=1e-4)  # we train it separately, so we need decrese to 1e-5, 1e-6, 1e-7 by hand when the loss doesn't decrease even increase.
         # optimizer = SGD(lr=0.001, decay=1e-4, momentum=0.9, nesterov=True)
         vae.compile(optimizer=optimizer, loss=vae_loss, metrics=[vae_r_loss, vae_kl_loss])
 
