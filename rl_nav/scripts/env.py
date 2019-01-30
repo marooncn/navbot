@@ -4,6 +4,7 @@ from __future__ import print_function
 import rospy
 import tf
 import roslaunch
+import rospkg
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Empty
 from sensor_msgs.msg import Image
@@ -47,13 +48,14 @@ class GazeboMaze(Environment):
         launch = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
         launch.start()        
         '''
-
         uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
         roslaunch.configure_logging(uuid)
-        self.launch = roslaunch.parent.ROSLaunchParent(uuid, ['/home/maroon/catkin_ws/src/rl_nav/launch/nav_gazebo.launch'])
+        path = rospkg.RosPack().get_path('rl_nav')  # 'rospack find' python api, find the path of rl_nav package
+        self.launch = roslaunch.parent.ROSLaunchParent(uuid, [path + '/launch/nav_gazebo.launch'])
         self.launch.start()
+
         rospy.init_node('env_node')
-        time.sleep(10)
+        time.sleep(10)  # Wait for gzserver to launch
 
         self.vel_pub = rospy.Publisher('/mobile_base/commands/velocity', Twist, queue_size=5)
         self.unpause = rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
@@ -61,6 +63,7 @@ class GazeboMaze(Environment):
         self.reset_proxy = rospy.ServiceProxy('/gazebo/reset_simulation', Empty)
         self.get_state = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
         self.set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+
         '''
         self.goal = self.goal_space[np.random.choice(len(self.goal_space))]
         start = self.start_space[np.random.choice(len(self.start_space))]
@@ -73,7 +76,7 @@ class GazeboMaze(Environment):
         self.img_width = config.input_dim[1]
         self.img_channels = config.input_dim[2]
         self._states = dict(shape=(self.img_height, self.img_width, self.img_channels), type='float')
-        self._actions = dict(num_actions=3, type='int')
+        self._actions = dict(continuous=False, num_actions=3)
         if self.continuous:
             self._actions = dict(shape=(2, 1), min_value=-1, max_value=1, type='float')
 
