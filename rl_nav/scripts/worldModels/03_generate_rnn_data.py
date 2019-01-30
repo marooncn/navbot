@@ -20,4 +20,4 @@ for i in range(100):
     rnn_input, rnn_output = vae.generate_rnn_data(obs_data, action_data)
     np.save(dir_name+'/rnn_input_' + str(i), rnn_input)
     np.save(dir_name+'/rnn_output_' + str(i), rnn_output)
-    print("Saving succeeds!")
+    print("Saving {}th succeeds!".format(i))
