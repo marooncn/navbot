@@ -149,7 +149,7 @@ class VAE():
 
     def get_output(self, input):
         input = np.asarray(input)
-        if input.shape == (1, Z_DIM):  # if input is 32-dim latent vector
+        if input.shape == (1, Z_DIM):  # if input is latent vector
             output = self.decoder.predict(input)
             return output
         elif input.shape == (1, 48, 64, 3):  # if input is the raw image
