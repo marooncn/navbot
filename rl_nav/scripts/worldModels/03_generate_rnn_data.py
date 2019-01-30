@@ -14,8 +14,8 @@ vae = VAE.VAE()
 vae.set_weights(config.vae_weight)
 
 for i in range(100):
-    obs_data = np.load('./record/observation{}'.format(i) + '.npy')
-    action_data = np.load('./record/action{}'.format(i) + '.npy')
+    obs_data = np.load('./record/observation{}'.format(i) + '.npy', encoding='latin1')
+    action_data = np.load('./record/action{}'.format(i) + '.npy', encoding='latin1')
 
     rnn_input, rnn_output = vae.generate_rnn_data(obs_data, action_data)
     np.save(dir_name+'/rnn_input_' + str(i), rnn_input)
