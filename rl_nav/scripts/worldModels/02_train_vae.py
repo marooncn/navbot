@@ -2,7 +2,7 @@
 
 import argparse
 import numpy as np
-import VAE2
+import VAE
 from keras import backend as K
 
 
@@ -14,7 +14,8 @@ import config
 def main(args):
     new_model = args.new_model
 
-    vae = VAE2.VAE()
+    vae = VAE.VAE()
+    vae.set_weights(config.vae_weight)
 
     if not new_model:
         try:
@@ -23,15 +24,14 @@ def main(args):
             print("Either set --new_model or ensure" + config.vae_weight + " exists")
             raise
 
-    data = np.load('./record/observation.npy')
-    data = np.array([item for episode in data for item in episode])
-    np.random.seed(0)
-    # for _ in range(10):
-    indices = np.random.choice(data.shape[0], 40000, replace=False)
-    data = data[indices] / 255.0
-    # print(data.shape)
-
-    vae.train(data, validation_split=0.0)
+    for j in range(2):
+        for i in range(100):
+            data = np.load('./record/observation{}.npy'.format(i), encoding='latin1')
+            data = np.array([item for episode in data for item in episode])
+            # np.random.seed(0)
+            # indices = np.random.choice(data.shape[0], 40000, replace=False)
+            data = data.astype(np.float) / 255.0
+            vae.train(data, j, i)
 
 
 if __name__ == "__main__":
