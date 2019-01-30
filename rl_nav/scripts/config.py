@@ -22,3 +22,6 @@ w_max = 2  # rad/s
 # VAE related
 latent_vector_dim = 32
 vae_weight = './models/vae_weights_loss_0.0019.h5'
+
+# MDN-RNN related
+rnn_weight = './models/rnn_weights_.h5'
