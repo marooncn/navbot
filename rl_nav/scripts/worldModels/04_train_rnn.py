@@ -30,7 +30,7 @@ def main(args):
         rnn_output = pad_sequences(rnn_output, maxlen=40, dtype='float32', padding='post', truncating='post')
         print(rnn_input.shape)
         print(rnn_output.shape)
-        rnn.train(rnn_input, rnn_output)
+        rnn.train(rnn_input, rnn_output, i)
 
 
 if __name__ == "__main__":
