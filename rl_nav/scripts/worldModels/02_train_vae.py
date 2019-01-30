@@ -21,7 +21,7 @@ def main(args):
         try:
             vae.set_weights(config.vae_weight)
         except:
-            print("Either set --new_model or ensure" + config.vae_weight + " exists")
+            print("Either set --new_model or ensure {} exists".format(config.vae_weight))
             raise
 
     for j in range(2):
