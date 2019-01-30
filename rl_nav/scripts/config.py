@@ -21,5 +21,4 @@ w_max = 2  # rad/s
 
 # VAE related
 latent_vector_dim = 32
-vae_weight = './models/vae_weights.h5'
-
+vae_weight = './models/vae_weights_loss_0.0019.h5'
