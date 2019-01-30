@@ -147,10 +147,16 @@ class VAE():
         z = self.encoder.predict(np.array(obs_data))
         return z
 
-    def get_output(self, obs_data):
-        # output = self.decoder.predict(np.array(z))
-        output = self.model.predict(obs_data)
-        return output
+    def get_output(self, input):
+        input = np.asarray(input)
+        if input.shape == (1, Z_DIM):  # if input is 32-dim latent vector
+            output = self.decoder.predict(input)
+            return output
+        elif input.shape == (1, 48, 64, 3):  # if input is the raw image
+            output = self.model.predict(input)
+            return output
+        else:
+            raise Exception("Input shape {} is not right, it needs to be (1, {}) or (1, 48, 64, 3).".format(input.shape, Z_DIM))
 
     def generate_rnn_data(self, obs_data, action_data):
         rnn_input = []
