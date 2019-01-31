@@ -23,13 +23,13 @@ def main(args):
 
     for i in range(100):
         print('Building {}th...'.format(i))
-        rnn_input = np.load('./rnn_data/rnn_input_' + str(i) + '.npy')
-        rnn_output = np.load('./rnn_data/rnn_output_' + str(i) + '.npy')
+        rnn_input = np.load('./rnn_data/rnn_input_' + str(i) + '.npy', encoding='latin1')
+        rnn_output = np.load('./rnn_data/rnn_output_' + str(i) + '.npy', encoding='latin1')
         # sequence pre-processing, for training LSTM the rnn_input must be (samples/epochs, time steps, features)
         rnn_input = pad_sequences(rnn_input, maxlen=40, dtype='float32', padding='post', truncating='post')
         rnn_output = pad_sequences(rnn_output, maxlen=40, dtype='float32', padding='post', truncating='post')
-        print(rnn_input.shape)
-        print(rnn_output.shape)
+        # print(rnn_input.shape)
+        # print(rnn_output.shape)
         rnn.train(rnn_input, rnn_output, i)
 
 
