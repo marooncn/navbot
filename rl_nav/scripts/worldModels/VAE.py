@@ -147,13 +147,13 @@ class VAE():
         z = self.encoder.predict(np.array(obs_data))
         return z
 
-    def get_output(self, input):
-        input = np.asarray(input)
-        if input.shape == (1, Z_DIM):  # if input is latent vector
-            output = self.decoder.predict(input)
+    def get_output(self, input_data):
+        input_data = np.asarray(input_data)
+        if input_data.shape == (1, Z_DIM):  # if input is latent vector
+            output = self.decoder.predict(input_data)
             return output
-        elif input.shape == (1, 48, 64, 3):  # if input is the raw image
-            output = self.model.predict(input)
+        elif input_data.shape == (1, 48, 64, 3):  # if input is the raw image
+            output = self.model.predict(input_data)
             return output
         else:
             raise Exception("Input shape {} is not right, it needs to be (1, {}) or (1, 48, 64, 3).".format(input.shape, Z_DIM))
