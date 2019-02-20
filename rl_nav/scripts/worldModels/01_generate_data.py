@@ -18,7 +18,7 @@ def main(args):
     print("Generating data for env maze{}".format(maze_id))
     random_generated_int = np.random.randint(0, 2 ** 31 - 1)
     np.random.seed(random_generated_int)
-    for i in range(100):
+    for i in range(101):
         total_frames = 0
         obs_data = []
         action_data = []
