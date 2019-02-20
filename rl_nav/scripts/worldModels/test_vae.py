@@ -11,7 +11,7 @@ np.set_printoptions(precision=4, edgeitems=6, linewidth=100, suppress=True)
 vae = VAE.VAE()
 vae.set_weights(config.vae_weight)
 
-data = np.load('./record/observation_test.npy')
+data = np.load('./record/observation100.npy')
 data = np.array([item for episode in data for item in episode])
 
 indices = np.random.choice(data.shape[0])
