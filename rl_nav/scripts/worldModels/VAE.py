@@ -122,7 +122,7 @@ class VAE():
         # optimizer = SGD(lr=0.001, decay=1e-4, momentum=0.9, nesterov=True)
         vae.compile(optimizer=optimizer, loss=vae_loss, metrics=[vae_r_loss, vae_kl_loss])
 
-        return (vae, vae_encoder, vae_decoder)
+        return [vae, vae_encoder, vae_decoder]
 
     def set_weights(self, filepath):
         self.model.load_weights(filepath)
@@ -171,5 +171,5 @@ class VAE():
         rnn_input = np.array(rnn_input)
         rnn_output = np.array(rnn_output)
 
-        return (rnn_input, rnn_output)
+        return [rnn_input, rnn_output]
 
