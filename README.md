@@ -1,4 +1,4 @@
-# RL-Navigation
+# navbot
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
     sudo apt-get install ros-kinetic-turtlebot-*
     sudo apt-get remove ros-kinetic-turtlebot-description
