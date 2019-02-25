@@ -71,14 +71,17 @@ class GazeboMaze(Environment):
         d0, theta0 = self.rectangular2polar(self.goal[0]-start[0], self.goal[1]-start[1])
         self.p = [d0, theta0]  # relative target position        
         '''
+        self.goal = []
+        self.p = []
+        self.success = False
 
         self.img_height = config.input_dim[0]
         self.img_width = config.input_dim[1]
         self.img_channels = config.input_dim[2]
         self._states = dict(shape=(self.img_height, self.img_width, self.img_channels), type='float')
-        self._actions = dict(continuous=False, num_actions=3)
+        self._actions = dict(num_actions=3, type='int')
         if self.continuous:
-            self._actions = dict(shape=(2, 1), min_value=-1, max_value=1, type='float')
+            self._actions = dict(shape=(2,), min_value=-1, max_value=1, type='float')
 
     def __str__(self):
         raise 'GazeMaze ({})'.format(self.maze_id)
@@ -115,6 +118,7 @@ class GazeboMaze(Environment):
         self.set_start(start[0], start[1], np.random.uniform(0, 2*math.pi))
         d0, theta0 = self.rectangular2polar(self.goal[0] - start[0], self.goal[1] - start[1])
         self.p = [d0, theta0]  # relative target position
+        self.success = False
 
         rospy.wait_for_service('/gazebo/reset_simulation')
         try:
@@ -149,8 +153,8 @@ class GazeboMaze(Environment):
             cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
         cv_image = cv2.resize(cv_image, (self.img_width, self.img_height))  # width, height
 
-        state = cv_image  # .reshape(1, 1, cv_image.shape[0], cv_image.shape[1])
-        return state
+        observation = cv_image  # .reshape(1, 1, cv_image.shape[0], cv_image.shape[1])
+        return observation
 
     def execute(self, action):
         """
@@ -175,7 +179,7 @@ class GazeboMaze(Environment):
         else:
             # 3 actions
             if action == 0:  # FORWARD
-                vel_cmd.linear.x = 0.2
+                vel_cmd.linear.x = 0.32
                 vel_cmd.angular.z = 0.0
             elif action == 1:  # LEFT
                 vel_cmd.linear.x = 0.05
@@ -198,7 +202,7 @@ class GazeboMaze(Environment):
         if self.img_channels == 1:
             cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
         cv_image = cv2.resize(cv_image, (self.img_width, self.img_height))
-        state = cv_image
+        observation = cv_image
 
         contact_data = None
         while contact_data is None:
@@ -226,6 +230,7 @@ class GazeboMaze(Environment):
         if d < Cd:
             done = True
             reward = r_arrive
+            self.success = True
 
         if not done:
             delta_d = self.p[0] - d
@@ -240,7 +245,7 @@ class GazeboMaze(Environment):
 
         self.p = [d, theta]
 
-        return state, done, reward
+        return observation, done, reward
 
     @property
     def states(self):

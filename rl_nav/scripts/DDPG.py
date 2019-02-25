@@ -1,4 +1,4 @@
-from tensorforce.agents import DQNAgent
+from tensorforce.agents import DDPGAgent
 import os
 import itertools
 
@@ -8,7 +8,7 @@ import worldModels.VAE
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-GazeboMaze = env.GazeboMaze(maze_id=0, continuous=False)
+GazeboMaze = env.GazeboMaze(maze_id=0, continuous=True)
 
 dir_name = 'record'
 if not os.path.exists(dir_name):
@@ -53,15 +53,16 @@ optimizer = dict(
 )
 
 # Instantiate a Tensorforce agent
-agent = DQNAgent(
+agent = DDPGAgent(
     states=dict(shape=(36,), type='float'),  # GazeboMaze.states,
     actions=GazeboMaze.actions,
     network=network_spec,
+    critic_network=network_spec,
     update_mode=update_model,
     memory=memory,
     actions_exploration=exploration,
     optimizer=optimizer,
-    double_q_model=True
+    critic_optimizer=optimizer
 )
 
 if restore:
@@ -111,7 +112,7 @@ while True:
     print('{} episode total reward: {}'.format(episode, episode_reward))
 
     if episode % 1000 == 0:
-        f = open(dir_name + '/DQN_episode' + str(episode) + '.txt', 'w')
+        f = open(dir_name + '/DDPG_episode' + str(episode) + '.txt', 'w')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')

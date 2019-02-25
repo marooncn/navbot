@@ -1,10 +1,7 @@
 from tensorforce.agents import DQNAgent
+from tensorforce.core.networks import Network
 import os
-import itertools
-
-import config
 import env
-import worldModels.VAE
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -15,15 +12,61 @@ if not os.path.exists(dir_name):
     os.makedirs(dir_name)
 restore = False
 
-vae = worldModels.VAE.VAE()
-vae.set_weights(config.vae_weight)
+states = dict(
+    image=GazeboMaze.states,
+    action=dict(shape=(2,), type='float'),
+    goal=dict(shape=(2,), type='float')
+)
 
-# Network as list of layers
-network_spec = [
-    dict(type='dense', size=128, activation='relu'),
-    dict(type='dense', size=64, activation='relu'),
-    dict(type='dense', size=32, activation='relu')
-]
+AModule = True   # is Action Module is valid
+GModule = True   # is Goal Module is valid
+
+
+class E2ENetwork(Network):
+
+    def tf_apply(self, x, internals, update, return_internals=False):
+        import tensorflow as tf
+        image = x['image']
+        action = x['action']
+        goal = x['goal']
+        initializer = tf.random_normal_initializer(mean=0.0, stddev=0.01, dtype=tf.float32)
+
+        # CNN
+        weights = tf.get_variable(name='W1', shape=(8, 6, 3, 32), initializer=initializer)
+        out = tf.nn.conv2d(image, filter=weights, strides=(1, 4, 4, 1), padding='SAME')
+        out = tf.nn.relu(out)
+
+        weights = tf.get_variable(name='W2', shape=(4, 3, 32, 64), initializer=initializer)
+        out = tf.nn.conv2d(out, filter=weights, strides=(1, 2, 2, 1), padding='SAME')
+        out = tf.nn.relu(out)
+
+        out = tf.nn.max_pool(out, ksize=(1, 2, 2, 1), strides=(1, 2, 2, 1), padding='SAME')
+        out = tf.nn.relu(out)
+
+        weights = tf.get_variable(name='W3', shape=(2, 2, 64, 64), initializer=initializer)
+        out = tf.nn.conv2d(out, filter=weights, strides=(1, 2, 2, 1), padding='SAME')
+        out = tf.nn.relu(out)
+
+        out = tf.layers.flatten(out)
+
+        if AModule:
+            action = tf.layers.dense(inputs=action, units=32, activation=tf.nn.relu)
+            action = tf.layers.dense(inputs=action, units=16, activation=tf.nn.relu)
+
+        if GModule:
+            goal = tf.layers.dense(inputs=goal, units=32, activation=tf.nn.relu)
+            goal = tf.layers.dense(inputs=goal, units=16, activation=tf.nn.relu)
+
+        # append action, goal
+        out = tf.concat([out, action, goal], axis=-1)
+        out = tf.layers.dense(inputs=out, units=64, activation=tf.nn.relu)
+        out = tf.layers.dense(inputs=out, units=32, activation=tf.nn.relu)
+
+        if return_internals:
+            return out, None
+        else:
+            return out
+
 
 memory = dict(
     type='replay',
@@ -54,9 +97,9 @@ optimizer = dict(
 
 # Instantiate a Tensorforce agent
 agent = DQNAgent(
-    states=dict(shape=(36,), type='float'),  # GazeboMaze.states,
+    states=states,
     actions=GazeboMaze.actions,
-    network=network_spec,
+    network=E2ENetwork,
     update_mode=update_model,
     memory=memory,
     actions_exploration=exploration,
@@ -78,20 +121,19 @@ while True:
 
     timestep = 0
     max_timesteps = 1000
-    max_episodes = 20000
+    max_episodes = 100000
     episode_reward = 0
     success = False
+    action = [0, 0]
 
     while True:
-        latent_vector = vae.get_vector(observation.reshape(1, 48, 64, 3))
-        latent_vector = list(itertools.chain(*latent_vector))  # [[ ]]  ->  [ ]
-        goal = GazeboMaze.goal
-        relative_pos = GazeboMaze.p
-        state = latent_vector + goal + relative_pos
+        states['image'] = observation
+        states['action'] = action
+        states['goal'] = GazeboMaze.goal
         # print(state)
 
         # Query the agent for its action decision
-        action = agent.act(state)
+        action = agent.act(states)
         # print(action)
         # Execute the decision and retrieve the current information
         observation, terminal, reward = GazeboMaze.execute(action)
