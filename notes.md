@@ -12,6 +12,7 @@ My paper reading [notes](https://github.com/marooncn/learning_note/blob/master/p
 ##### Comparision 
 <img alt="simulation framework" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/simulation%20framework.png"  width="500"> <br>
 <img alt=" summary of popular environments" src="https://github.com/marooncn/learning_note/blob/master/paper%20reading/image/%20summary%20of%20popular%20environments.png"  width="500"> <br>
+[Habitat](https://github.com/facebookresearch/habitat-sim)(Facebook 2019, big gays) <br>
 
 ### Papers 
 [Building Generalizable Agents with a Realistic and Rich 3D Environment](https://arxiv.org/pdf/1801.02209.pdf)
