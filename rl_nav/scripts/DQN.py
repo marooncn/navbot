@@ -18,12 +18,13 @@ restore = False
 vae = worldModels.VAE.VAE()
 vae.set_weights(config.vae_weight)
 
+
 # Network as list of layers
 network_spec = [
-    dict(type='dense', size=128, activation='relu'),
-    dict(type='dense', size=64, activation='relu'),
-    dict(type='dense', size=32, activation='relu')
-]
+     dict(type='dense', size=128, activation='relu'),
+     dict(type='dense', size=64, activation='relu'),
+     dict(type='dense', size=32, activation='relu')]
+
 
 memory = dict(
     type='replay',
@@ -34,8 +35,8 @@ memory = dict(
 exploration = dict(
     type='epsilon_decay',
     initial_epsilon=1.0,
-    final_epsilon=0.005,
-    timesteps=100000,
+    final_epsilon=0.1,
+    timesteps=10000,
     start_timestep=0
 )
 
@@ -59,13 +60,13 @@ agent = DQNAgent(
     network=network_spec,
     update_mode=update_model,
     memory=memory,
-    actions_exploration=exploration,
+    # actions_exploration=exploration,
     optimizer=optimizer,
+    saver=dict(directory='./models', basename='DQN_model.ckpt', load=restore, seconds=600),
+    summarizer=dict(directory='./record/DQN', labels=["graph", "losses", "reward"], seconds=600),
     double_q_model=True
 )
 
-if restore:
-    agent.restore_model('./models/')
 
 episode = 0
 episode_rewards = []
@@ -78,21 +79,21 @@ while True:
 
     timestep = 0
     max_timesteps = 1000
-    max_episodes = 20000
+    max_episodes = 10000
     episode_reward = 0
     success = False
+    action = -1
 
     while True:
         latent_vector = vae.get_vector(observation.reshape(1, 48, 64, 3))
         latent_vector = list(itertools.chain(*latent_vector))  # [[ ]]  ->  [ ]
-        goal = GazeboMaze.goal
         relative_pos = GazeboMaze.p
-        state = latent_vector + goal + relative_pos
-        # print(state)
+        previous_act = GazeboMaze.vel_cmd
+        state = latent_vector + previous_act + relative_pos
 
         # Query the agent for its action decision
         action = agent.act(state)
-        # print(action)
+        print(action)
         # Execute the decision and retrieve the current information
         observation, terminal, reward = GazeboMaze.execute(action)
         observation = observation / 255.0  # normalize
@@ -108,7 +109,7 @@ while True:
     episode += 1
     # avg_reward = float(episode_reward)/timestep
     episode_rewards.append([episode_reward, timestep, success])
-    print('{} episode total reward: {}'.format(episode, episode_reward))
+    # print('{} episode total reward: {}'.format(episode, episode_reward))
 
     if episode % 1000 == 0:
         f = open(dir_name + '/DQN_episode' + str(episode) + '.txt', 'w')

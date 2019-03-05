@@ -66,7 +66,7 @@ agent = DDPGAgent(
 )
 
 if restore:
-    agent.restore_model('./models/')
+    agent.restore_model('./models')
 
 episode = 0
 episode_rewards = []
@@ -117,7 +117,6 @@ while True:
             f.write(str(i))
             f.write('\n')
         f.close()
-        agent.save_model('./models/')
 
     if episode == max_episodes:
         break

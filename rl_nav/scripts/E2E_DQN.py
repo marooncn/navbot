@@ -1,5 +1,4 @@
 from tensorforce.agents import DQNAgent
-from tensorforce.core.networks import Network
 import os
 import env
 
@@ -14,59 +13,45 @@ restore = False
 
 states = dict(
     image=GazeboMaze.states,
-    action=dict(shape=(2,), type='float'),
-    goal=dict(shape=(2,), type='float')
+    previous_act=dict(shape=(2,), type='float'),
+    relative_pos=dict(shape=(2,), type='float')
 )
 
 AModule = True   # is Action Module is valid
 GModule = True   # is Goal Module is valid
 
 
-class E2ENetwork(Network):
+network_spec = [
+     [
+          dict(type='input', names=['image']),
+          dict(type='conv2d', size=32, window=(8, 6), stride=4, activation='relu', padding='SAME'),
+          dict(type='conv2d', size=64, window=(4, 3), stride=2, activation='relu', padding='SAME'),
+          dict(type='pool2d', pooling_type='max', window=2, stride=2, padding='SAME'),
+          dict(type='conv2d', size=64, window=2, stride=2, activation='relu', padding='SAME'),
+          dict(type='flatten'),
+          dict(type='output', name='image_output')
+     ],
+     [
+          dict(type='input', names=['previous_act']),
+          dict(type='dense', size=32, activation='relu'),
+          dict(type='dense', size=16, activation='relu'),
+          dict(type='output', name='action_output'),
+     ],
+     [
+          dict(type='input', names=['relative_pos']),
+          dict(type='dense', size=32, activation='relu'),
+          dict(type='dense', size=16, activation='relu'),
+          dict(type='output', name='position_output'),
+     ],
 
-    def tf_apply(self, x, internals, update, return_internals=False):
-        import tensorflow as tf
-        image = x['image']
-        action = x['action']
-        goal = x['goal']
-        initializer = tf.random_normal_initializer(mean=0.0, stddev=0.01, dtype=tf.float32)
+     [
+          dict(type='input', names=['image_output', 'action_output', 'position_output'], aggregation_type='concat'),
+          dict(type='dense', size=64, activation='relu'),
+          dict(type='dense', size=32, activation='relu'),
 
-        # CNN
-        weights = tf.get_variable(name='W1', shape=(8, 6, 3, 32), initializer=initializer)
-        out = tf.nn.conv2d(image, filter=weights, strides=(1, 4, 4, 1), padding='SAME')
-        out = tf.nn.relu(out)
+     ]
 
-        weights = tf.get_variable(name='W2', shape=(4, 3, 32, 64), initializer=initializer)
-        out = tf.nn.conv2d(out, filter=weights, strides=(1, 2, 2, 1), padding='SAME')
-        out = tf.nn.relu(out)
-
-        out = tf.nn.max_pool(out, ksize=(1, 2, 2, 1), strides=(1, 2, 2, 1), padding='SAME')
-        out = tf.nn.relu(out)
-
-        weights = tf.get_variable(name='W3', shape=(2, 2, 64, 64), initializer=initializer)
-        out = tf.nn.conv2d(out, filter=weights, strides=(1, 2, 2, 1), padding='SAME')
-        out = tf.nn.relu(out)
-
-        out = tf.layers.flatten(out)
-
-        if AModule:
-            action = tf.layers.dense(inputs=action, units=32, activation=tf.nn.relu)
-            action = tf.layers.dense(inputs=action, units=16, activation=tf.nn.relu)
-
-        if GModule:
-            goal = tf.layers.dense(inputs=goal, units=32, activation=tf.nn.relu)
-            goal = tf.layers.dense(inputs=goal, units=16, activation=tf.nn.relu)
-
-        # append action, goal
-        out = tf.concat([out, action, goal], axis=-1)
-        out = tf.layers.dense(inputs=out, units=64, activation=tf.nn.relu)
-        out = tf.layers.dense(inputs=out, units=32, activation=tf.nn.relu)
-
-        if return_internals:
-            return out, None
-        else:
-            return out
-
+]
 
 memory = dict(
     type='replay',
@@ -77,7 +62,7 @@ memory = dict(
 exploration = dict(
     type='epsilon_decay',
     initial_epsilon=1.0,
-    final_epsilon=0.005,
+    final_epsilon=0.1,
     timesteps=100000,
     start_timestep=0
 )
@@ -99,19 +84,22 @@ optimizer = dict(
 agent = DQNAgent(
     states=states,
     actions=GazeboMaze.actions,
-    network=E2ENetwork,
+    network=network_spec,
     update_mode=update_model,
     memory=memory,
     actions_exploration=exploration,
+    saver=dict(directory='./models', basename='E2E_DQN_model.ckpt', load=restore, seconds=600),
+    summarizer=dict(directory='./record/E2E_DQN', labels=["graph", "losses", "reward", "'entropy'"], seconds=600),
     optimizer=optimizer,
     double_q_model=True
 )
 
-if restore:
-    agent.restore_model('./models/')
 
 episode = 0
 episode_rewards = []
+total_timestep = 0
+max_timesteps = 1000
+max_episodes = 50000
 
 
 while True:
@@ -120,21 +108,20 @@ while True:
     agent.reset()
 
     timestep = 0
-    max_timesteps = 1000
-    max_episodes = 100000
     episode_reward = 0
     success = False
-    action = [0, 0]
 
     while True:
-        states['image'] = observation
-        states['action'] = action
-        states['goal'] = GazeboMaze.goal
+        state = dict()
+        state['image'] = observation,
+        state['previous_act'] = GazeboMaze.vel_cmd,
+        state['relative_pos'] = GazeboMaze.p,
+        # state = dict(image=observation, previous_act=GazeboMaze.vel_cmd, relative_pos=GazeboMaze.p)
         # print(state)
 
         # Query the agent for its action decision
-        action = agent.act(states)
-        # print(action)
+        action = agent.act(state)
+        print(action)
         # Execute the decision and retrieve the current information
         observation, terminal, reward = GazeboMaze.execute(action)
         observation = observation / 255.0  # normalize
@@ -148,17 +135,18 @@ while True:
             break
 
     episode += 1
+    total_timestep += timestep
     # avg_reward = float(episode_reward)/timestep
     episode_rewards.append([episode_reward, timestep, success])
-    print('{} episode total reward: {}'.format(episode, episode_reward))
+    if total_timestep > 100000:
+        print('{}th episode reward: {}'.format(episode, episode_reward))
 
     if episode % 1000 == 0:
-        f = open(dir_name + '/DQN_episode' + str(episode) + '.txt', 'w')
+        f = open(dir_name + '/E2E_DQN_episode' + str(episode) + '.txt', 'w')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')
         f.close()
-        agent.save_model('./models/')
 
     if episode == max_episodes:
         break

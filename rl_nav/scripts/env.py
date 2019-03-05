@@ -81,7 +81,9 @@ class GazeboMaze(Environment):
         self._states = dict(shape=(self.img_height, self.img_width, self.img_channels), type='float')
         self._actions = dict(num_actions=3, type='int')
         if self.continuous:
-            self._actions = dict(shape=(2,), min_value=-1, max_value=1, type='float')
+            self._actions = dict(linear_vel=dict(shape=(), type='float', min_value=0.0, max_value=1.0),
+                                 angular_vel=dict(shape=(), type='float', min_value=-1.0, max_value=1.0))
+        self.vel_cmd = [0., 0.]
 
     def __str__(self):
         raise 'GazeMaze ({})'.format(self.maze_id)
@@ -115,10 +117,13 @@ class GazeboMaze(Environment):
         # Resets the state of the environment and returns an initial observation.
         self.goal = self.goal_space[np.random.choice(len(self.goal_space))]
         start = self.start_space[np.random.choice(len(self.start_space))]
-        self.set_start(start[0], start[1], np.random.uniform(0, 2*math.pi))
-        d0, theta0 = self.rectangular2polar(self.goal[0] - start[0], self.goal[1] - start[1])
-        self.p = [d0, theta0]  # relative target position
+        theta = np.random.uniform(2.0/3*math.pi, 4.0/3*math.pi)
+        self.set_start(start[0], start[1], theta)
+        d0, alpha0 = self.goal2robot(self.goal[0] - start[0], self.goal[1] - start[1], theta)
+        # print(d0, alpha0)
+        self.p = [d0, alpha0]  # relative target position
         self.success = False
+        self.vel_cmd = [0., 0.]
 
         rospy.wait_for_service('/gazebo/reset_simulation')
         try:
@@ -174,8 +179,8 @@ class GazeboMaze(Environment):
 
         vel_cmd = Twist()
         if self.continuous:
-            vel_cmd.linear.x = v_max*action[0]
-            vel_cmd.angular.z = w_max*action[1]
+            vel_cmd.linear.x = v_max*action['linear_vel']
+            vel_cmd.angular.z = w_max*action['angular_vel']
         else:
             # 3 actions
             if action == 0:  # FORWARD
@@ -188,6 +193,7 @@ class GazeboMaze(Environment):
                 vel_cmd.linear.x = 0.05
                 vel_cmd.angular.z = -0.2
 
+        self.vel_cmd = [vel_cmd.linear.x, vel_cmd.angular.z]
         self.vel_pub.publish(vel_cmd)
 
         done = False
@@ -223,10 +229,15 @@ class GazeboMaze(Environment):
         except rospy.ServiceException:
             print("/gazebo/get_model_state service call failed")
 
-        pos = robot_state.pose.position
-        d_x = self.goal[0] - pos.x
-        d_y = self.goal[1] - pos.y
-        d, theta = self.rectangular2polar(d_x, d_y)
+        position = robot_state.pose.position
+        orientation = robot_state.pose.orientation
+        d_x = self.goal[0] - position.x
+        d_y = self.goal[1] - position.y
+
+        _, _, theta = tf.transformations.euler_from_quaternion(
+            [orientation.x, orientation.y, orientation.z, orientation.w])
+        d, alpha = self.goal2robot(d_x, d_y, theta)
+        # print(d, alpha)
         if d < Cd:
             done = True
             reward = r_arrive
@@ -234,7 +245,7 @@ class GazeboMaze(Environment):
 
         if not done:
             delta_d = self.p[0] - d
-            reward = Cr*delta_d
+            reward = Cr*delta_d - 0.1  # -0.1 is time step penalty
 
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
@@ -243,7 +254,7 @@ class GazeboMaze(Environment):
         except rospy.ServiceException:
             print("/gazebo/pause_physics service call failed")
 
-        self.p = [d, theta]
+        self.p = [d, alpha]
 
         return observation, done, reward
 
@@ -277,10 +288,12 @@ class GazeboMaze(Environment):
         """
         return self._actions
 
-    def rectangular2polar(self, d_x, d_y):
+    def goal2robot(self, d_x, d_y, theta):
         d = math.sqrt(d_x * d_x + d_y * d_y)
-        theta = math.atan2(d_y, d_x)
-        return d, theta
+        x = d_y*math.cos(theta)-d_x*math.sin(theta)
+        y = d_y*math.sin(theta)+d_x*math.cos(theta)
+        alpha = math.atan2(y, x)
+        return d, alpha
 
     def set_start(self, x, y, theta):
         state = ModelState()
