@@ -1,0 +1,53 @@
+<launch>
+
+  <arg name="maze_id" default="0" />
+
+  <!-- 设置launch文件参数 -->
+  <arg name="world_name" value="$(find rl_nav)/worlds/maze$(arg maze_id).world" />
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="debug" default="false" />
+
+  <!-- 运行gazebo仿真环境 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)" />
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+  </include>
+
+  <!-- 加载机器人模型描述参数 -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find
+        turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro'" />
+
+
+  <!-- 在gazebo中加载机器人模型 -->
+  <node name="spawn_robot1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot1 -param robot_description -x 1.0 -y -3.0 -Y 0" />
+
+  <node name="spawn_robot2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot2 -param robot_description -x 1.0 -y -4.0 -Y 0" />
+
+  <node name="spawn_robot3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot3 -param robot_description -x 0.0 -y -4.0 -Y 0" />
+
+  <node name="spawn_robot4" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot4 -param robot_description -x 0.0 -y -1.8 -Y 0" />
+
+  <node name="spawn_robot5" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot5 -param robot_description -x -1.0 -y -3.0 -Y 0" />
+
+  <node name="spawn_robot6" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot6 -param robot_description -x -1.8 -y -1.9 -Y 0" />
+
+  <node name="spawn_robot7" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot7 -param robot_description -x -1.7 -y -3.8 -Y 0" />
+
+  <node name="spawn_robot8" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model goal -param robot_description -x -2.8 -y -4.0 -Y 0" />
+
+</launch>
