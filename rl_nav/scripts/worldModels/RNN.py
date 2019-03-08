@@ -128,9 +128,8 @@ class RNN():
 
             result = tf_normal(y_true, mu, sigma, pi)
 
-            # result = -K.log(result + 1e-8)
-            # result = K.mean(result, axis=(1, 2))  # mean over rollout length and z dim
-            result = K.max(result, axis=(1, 2))
+            result = -K.log(result + 1e-8)
+            result = K.mean(result, axis=(1, 2))  # mean over rollout length and z dim
             return result
 
         def rnn_kl_loss(y_true, y_pred):
