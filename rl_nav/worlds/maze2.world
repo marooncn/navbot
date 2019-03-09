@@ -429,7 +429,7 @@
             <layer>0</layer>
           </meta>
         </visual>
-        <pose frame=''>0.449131 0.420217 0 0 -0 0</pose>
+        <pose frame=''>0.449131 0.8 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <kinematic>0</kinematic>
       </link>
