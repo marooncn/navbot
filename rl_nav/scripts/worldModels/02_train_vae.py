@@ -3,8 +3,6 @@
 import argparse
 import numpy as np
 import VAE
-from keras import backend as K
-
 
 import sys
 sys.path.append("..")
@@ -21,7 +19,7 @@ def main(args):
         try:
             vae.set_weights(config.vae_weight)
         except:
-            print("Either set --new_model or ensure {} exists".format(config.vae_weight))
+            print("Either set --new_model or ensure" + config.vae_weight + " exists")
             raise
 
     for j in range(2):
@@ -32,6 +30,8 @@ def main(args):
             # indices = np.random.choice(data.shape[0], 40000, replace=False)
             data = data.astype(np.float) / 255.0
             vae.train(data, j, i)
+
+    vae.plot_loss()
 
 
 if __name__ == "__main__":

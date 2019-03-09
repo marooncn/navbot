@@ -11,7 +11,7 @@ np.set_printoptions(precision=4, edgeitems=6, linewidth=100, suppress=True)
 vae = VAE.VAE()
 vae.set_weights(config.vae_weight)
 
-data = np.load('./record/observation100.npy')
+data = np.load('./record_tmp/observation3.npy')
 data = np.array([item for episode in data for item in episode])
 
 indices = np.random.choice(data.shape[0])
@@ -25,7 +25,7 @@ plt.title('Original')
 
 z = vae.get_vector(frame.reshape(1, 48, 64, 3))
 print(z)
-output = vae.get_output(frame.reshape(1, 48, 64, 3))
+output = vae.get_output(z)
 # print(output)
 plt.subplot(1, 2, 2)
 result = output.reshape(48, 64, 3)[:, :, ::-1]
