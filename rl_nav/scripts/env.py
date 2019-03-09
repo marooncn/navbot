@@ -37,7 +37,7 @@ class GazeboMaze(Environment):
     def __init__(self, maze_id=0, continuous=True):
         self.maze_id = maze_id
         self.continuous = continuous
-        self.goal_space = config.goal_space[maze_id]
+        self.goal_space = config.start_space[maze_id]  # config.goal_space[maze_id]
         self.start_space = config.start_space[maze_id]
         # Launch the simulation with the given launch file name
         '''
@@ -115,10 +115,11 @@ class GazeboMaze(Environment):
         """
 
         # Resets the state of the environment and returns an initial observation.
-        self.goal = self.goal_space[np.random.choice(len(self.goal_space))]
-        start = self.start_space[np.random.choice(len(self.start_space))]
-        theta = np.random.uniform(2.0/3*math.pi, 4.0/3*math.pi)
+        start_index, goal_index = np.random.choice(len(self.start_space), size=2, replace=False)
+        start = self.start_space[start_index]
+        theta = np.random.uniform(0, 2.0*math.pi)
         self.set_start(start[0], start[1], theta)
+        self.goal = self.goal_space[goal_index]
         d0, alpha0 = self.goal2robot(self.goal[0] - start[0], self.goal[1] - start[1], theta)
         # print(d0, alpha0)
         self.p = [d0, alpha0]  # relative target position
