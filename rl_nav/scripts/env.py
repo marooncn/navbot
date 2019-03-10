@@ -37,7 +37,7 @@ class GazeboMaze(Environment):
     def __init__(self, maze_id=0, continuous=True):
         self.maze_id = maze_id
         self.continuous = continuous
-        self.goal_space = config.start_space[maze_id]  # config.goal_space[maze_id]
+        self.goal_space = config.goal_space[maze_id]  # config.goal_space[maze_id]
         self.start_space = config.start_space[maze_id]
         # Launch the simulation with the given launch file name
         '''
@@ -79,7 +79,7 @@ class GazeboMaze(Environment):
         self.img_width = config.input_dim[1]
         self.img_channels = config.input_dim[2]
         self._states = dict(shape=(self.img_height, self.img_width, self.img_channels), type='float')
-        self._actions = dict(num_actions=3, type='int')
+        self._actions = dict(num_actions=5, type='int')
         if self.continuous:
             self._actions = dict(linear_vel=dict(shape=(), type='float', min_value=0.0, max_value=1.0),
                                  angular_vel=dict(shape=(), type='float', min_value=-1.0, max_value=1.0))
@@ -115,9 +115,10 @@ class GazeboMaze(Environment):
         """
 
         # Resets the state of the environment and returns an initial observation.
-        start_index, goal_index = np.random.choice(len(self.start_space), size=2, replace=False)
+        start_index = np.random.choice(len(self.start_space))
+        goal_index = np.random.choice(len(self.goal_space))
         start = self.start_space[start_index]
-        theta = np.random.uniform(0, 2.0*math.pi)
+        theta = 4.0/3*math.pi  # np.random.uniform(0, 2.0*math.pi)
         self.set_start(start[0], start[1], theta)
         self.goal = self.goal_space[goal_index]
         d0, alpha0 = self.goal2robot(self.goal[0] - start[0], self.goal[1] - start[1], theta)
@@ -184,15 +185,23 @@ class GazeboMaze(Environment):
             vel_cmd.angular.z = w_max*action['angular_vel']
         else:
             # 3 actions
-            if action == 0:  # FORWARD
+            if action == 0:  # Left
                 vel_cmd.linear.x = 0.32
-                vel_cmd.angular.z = 0.0
-            elif action == 1:  # LEFT
-                vel_cmd.linear.x = 0.05
-                vel_cmd.angular.z = 0.2
-            elif action == 2:  # RIGHT
-                vel_cmd.linear.x = 0.05
-                vel_cmd.angular.z = -0.2
+                vel_cmd.angular.z = 1.2
+            elif action == 1:  # H-LEFT
+                vel_cmd.linear.x = 0.32
+                vel_cmd.angular.z = 0.6
+            elif action == 2:  # Straight
+                vel_cmd.linear.x = 0.32
+                vel_cmd.angular.z = 0
+            elif action == 3:  # H-Right
+                vel_cmd.linear.x = 0.32
+                vel_cmd.angular.z = -0.6
+            elif action == 4:  # Right
+                vel_cmd.linear.x = 0.32
+                vel_cmd.angular.z = -1.2
+            else:
+                raise Exception('Error discrete action: {}'.format(action))
 
         self.vel_cmd = [vel_cmd.linear.x, vel_cmd.angular.z]
         self.vel_pub.publish(vel_cmd)
@@ -218,6 +227,7 @@ class GazeboMaze(Environment):
         if collision:
             done = True
             reward = r_collision
+            print("collision!")
         # print(collision, contact_data.states)
 
         robot_state = None
@@ -243,6 +253,7 @@ class GazeboMaze(Environment):
             done = True
             reward = r_arrive
             self.success = True
+            print("arrival!")
 
         if not done:
             delta_d = self.p[0] - d

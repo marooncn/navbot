@@ -8,7 +8,7 @@ import worldModels.VAE
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-GazeboMaze = env.GazeboMaze(maze_id=0, continuous=False)
+GazeboMaze = env.GazeboMaze(maze_id=1, continuous=False)
 
 dir_name = 'record'
 if not os.path.exists(dir_name):
@@ -21,15 +21,15 @@ vae.set_weights(config.vae_weight)
 
 # Network as list of layers
 network_spec = [
-     dict(type='dense', size=128, activation='relu'),
-     dict(type='dense', size=64, activation='relu'),
-     dict(type='dense', size=32, activation='relu')]
+     dict(type='dense', size=512, activation='relu'),
+     dict(type='dense', size=512, activation='relu'),
+     dict(type='dense', size=512, activation='relu')]
 
 
 memory = dict(
     type='replay',
     include_next_states=True,
-    capacity=10000
+    capacity=3000
 )
 
 exploration = dict(
@@ -60,10 +60,10 @@ agent = DQNAgent(
     network=network_spec,
     update_mode=update_model,
     memory=memory,
-    # actions_exploration=exploration,
+    actions_exploration=exploration,
     optimizer=optimizer,
     saver=dict(directory='./models', basename='DQN_model.ckpt', load=restore, seconds=600),
-    summarizer=dict(directory='./record/DQN', labels=["graph", "losses", "reward"], seconds=600),
+    summarizer=dict(directory='./record/DQN', labels=["graph", "losses", "reward", "entropy"], seconds=6000),
     double_q_model=True
 )
 
@@ -89,7 +89,7 @@ while True:
         latent_vector = list(itertools.chain(*latent_vector))  # [[ ]]  ->  [ ]
         relative_pos = GazeboMaze.p
         previous_act = GazeboMaze.vel_cmd
-        state = latent_vector + previous_act + relative_pos
+        state = latent_vector + relative_pos + previous_act
 
         # Query the agent for its action decision
         action = agent.act(state)
