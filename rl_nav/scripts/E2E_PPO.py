@@ -90,7 +90,7 @@ episode_rewards = []
 successes = []
 total_timestep = 0
 max_timesteps = 1000
-# max_episodes = 50000
+max_episodes = 50000
 
 
 while True:
@@ -146,5 +146,5 @@ while True:
             agent.save_model('./models/')
             break
 
-        # if episode == max_episodes:
-        #     break
+    # if episode == max_episodes:
+    #     break
