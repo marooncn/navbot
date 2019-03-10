@@ -77,6 +77,8 @@ agent = DQNAgent(
 
 
 episode = 0
+max_timesteps = 1000
+max_episodes = 10000
 episode_rewards = []
 successes = []
 
@@ -87,8 +89,6 @@ while True:
     agent.reset()
 
     timestep = 0
-    max_timesteps = 1000
-    max_episodes = 10000
     episode_reward = 0
     success = False
     action = -1
@@ -137,5 +137,5 @@ while True:
             agent.save_model('./models/')
             break
 
-    if episode == max_episodes:
-        break
+    # if episode == max_episodes:
+    #     break

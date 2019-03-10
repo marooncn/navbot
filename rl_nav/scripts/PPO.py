@@ -81,7 +81,7 @@ agent = PPOAgent(
 episode = 0
 total_timestep = 0
 max_timesteps = 1000
-max_episodes = 100000
+max_episodes = 10000
 episode_rewards = []
 successes = []
 
@@ -141,5 +141,5 @@ while True:
             agent.save_model('./models/')
             break
 
-    if episode == max_episodes:
-        break
+    # if episode == max_episodes:
+    #     break
