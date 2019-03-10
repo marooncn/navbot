@@ -6,14 +6,22 @@ import config
 import env
 import worldModels.VAE
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-GazeboMaze = env.GazeboMaze(maze_id=1, continuous=False)
-
-dir_name = 'record'
-if not os.path.exists(dir_name):
-    os.makedirs(dir_name)
+maze_id = config.maze_id
 restore = False
+
+GazeboMaze = env.GazeboMaze(maze_id=maze_id, continuous=False)
+
+record_dir = 'record'
+if not os.path.exists(record_dir):
+    os.makedirs(record_dir)
+
+saver_dir = './models/nav{}'.format(maze_id)
+if not os.path.exists(saver_dir):
+    os.makedirs(saver_dir)
+
+summarizer_dir = './record/DQN/nav{}'.format(maze_id)
+if not os.path.exists(summarizer_dir):
+    os.makedirs(summarizer_dir)
 
 vae = worldModels.VAE.VAE()
 vae.set_weights(config.vae_weight)
@@ -29,23 +37,23 @@ network_spec = [
 memory = dict(
     type='replay',
     include_next_states=True,
-    capacity=3000
+    capacity=30000
 )
 
 exploration = dict(
     type='epsilon_decay',
     initial_epsilon=1.0,
-    final_epsilon=0.1,
-    timesteps=10000,
+    final_epsilon=1e-1,
+    timesteps=5000000,
     start_timestep=0
 )
 
 update_model = dict(
     unit='timesteps',
     # 64 timesteps per update
-    batch_size=64,
+    batch_size=32,
     # Every 64 timesteps
-    frequency=64
+    frequency=32
 )
 
 optimizer = dict(
@@ -62,14 +70,15 @@ agent = DQNAgent(
     memory=memory,
     actions_exploration=exploration,
     optimizer=optimizer,
-    saver=dict(directory='./models', basename='DQN_model.ckpt', load=restore, seconds=600),
-    summarizer=dict(directory='./record/DQN', labels=["graph", "losses", "reward", "entropy"], seconds=6000),
+    saver=dict(directory=saver_dir, basename='DQN_model.ckpt', load=restore, seconds=10800),
+    summarizer=dict(directory=summarizer_dir, labels=["graph", "losses", "reward"], seconds=10800),
     double_q_model=True
 )
 
 
 episode = 0
 episode_rewards = []
+successes = []
 
 
 while True:
@@ -108,16 +117,25 @@ while True:
 
     episode += 1
     # avg_reward = float(episode_reward)/timestep
+    successes.append(success)
     episode_rewards.append([episode_reward, timestep, success])
+
     # print('{} episode total reward: {}'.format(episode, episode_reward))
 
     if episode % 1000 == 0:
-        f = open(dir_name + '/DQN_episode' + str(episode) + '.txt', 'w')
+        f = open(record_dir + '/DQN_episode' + str(episode) + '.txt', 'w')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')
         f.close()
+        episode_rewards = []
         agent.save_model('./models/')
+
+    if len(successes) > 100:
+        if sum(successes[-100:]) > 90:
+            GazeboMaze.close()
+            agent.save_model('./models/')
+            break
 
     if episode == max_episodes:
         break
