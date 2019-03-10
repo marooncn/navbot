@@ -13,7 +13,6 @@ def main(args):
     new_model = args.new_model
 
     vae = VAE.VAE()
-    vae.set_weights(config.vae_weight)
 
     if not new_model:
         try:
@@ -36,7 +35,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=('Train VAE'))
-    parser.add_argument('--new_model', type=bool, default=True, help='start a new model from scratch?')
+    parser.add_argument('--new_model', type=bool, default=False, help='start a new model from scratch?')
     args = parser.parse_args()
 
     main(args)
