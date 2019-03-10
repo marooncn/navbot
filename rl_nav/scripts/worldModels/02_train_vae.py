@@ -23,7 +23,7 @@ def main(args):
             raise
 
     for j in range(2):
-        for i in range(100):
+        for i in range(130):
             data = np.load('./record/observation{}.npy'.format(i), encoding='latin1')
             data = np.array([item for episode in data for item in episode])
             # np.random.seed(0)
