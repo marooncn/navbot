@@ -118,7 +118,7 @@ class GazeboMaze(Environment):
         start_index = np.random.choice(len(self.start_space))
         goal_index = np.random.choice(len(self.goal_space))
         start = self.start_space[start_index]
-        theta = 4.0/3*math.pi  # np.random.uniform(0, 2.0*math.pi)
+        theta = np.random.uniform(0, 2.0*math.pi)
         self.set_start(start[0], start[1], theta)
         self.goal = self.goal_space[goal_index]
         d0, alpha0 = self.goal2robot(self.goal[0] - start[0], self.goal[1] - start[1], theta)
