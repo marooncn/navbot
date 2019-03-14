@@ -92,7 +92,7 @@ class LossHistory(Callback):
             plt.plot(iters, self.val_loss[loss_type], 'k', label='val loss')
         plt.grid(True)
         plt.xlabel(loss_type)
-        plt.ylabel('acc-loss')
+        plt.ylabel('loss')
         plt.legend(loc="upper right")
         plt.show()
 
