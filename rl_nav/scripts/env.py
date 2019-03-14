@@ -186,20 +186,20 @@ class GazeboMaze(Environment):
         else:
             # 3 actions
             if action == 0:  # Left
-                vel_cmd.linear.x = 0.32
-                vel_cmd.angular.z = 1.2
+                vel_cmd.linear.x = 0.25
+                vel_cmd.angular.z = 1.0
             elif action == 1:  # H-LEFT
-                vel_cmd.linear.x = 0.32
-                vel_cmd.angular.z = 0.6
+                vel_cmd.linear.x = 0.25
+                vel_cmd.angular.z = 0.4
             elif action == 2:  # Straight
-                vel_cmd.linear.x = 0.32
+                vel_cmd.linear.x = 0.25
                 vel_cmd.angular.z = 0
             elif action == 3:  # H-Right
-                vel_cmd.linear.x = 0.32
-                vel_cmd.angular.z = -0.6
+                vel_cmd.linear.x = 0.25
+                vel_cmd.angular.z = -0.4
             elif action == 4:  # Right
-                vel_cmd.linear.x = 0.32
-                vel_cmd.angular.z = -1.2
+                vel_cmd.linear.x = 0.25
+                vel_cmd.angular.z = -1.0
             else:
                 raise Exception('Error discrete action: {}'.format(action))
 
@@ -257,7 +257,7 @@ class GazeboMaze(Environment):
 
         if not done:
             delta_d = self.p[0] - d
-            reward = Cr*delta_d - 0.1  # -0.1 is time step penalty
+            reward = Cr*delta_d - 0.01  # -0.01 is time step penalty
 
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
