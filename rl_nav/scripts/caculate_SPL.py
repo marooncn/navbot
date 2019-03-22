@@ -48,7 +48,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evaluate the performance.')
-    parser.add_argument('--filepath', type=str, default='/PPO/nav1/PPO_episode1000.txt', help='the file path under record dir')
+    parser.add_argument('--filepath', type=str, default='/PPO/nav1/PPO_episode.txt', help='the file path under record dir')
     args = parser.parse_args()
     main(args)
 
