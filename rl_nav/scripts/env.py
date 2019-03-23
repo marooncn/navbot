@@ -24,8 +24,9 @@ import config
 # reward parameter
 r_arrive = config.r_arrive
 r_collision = config.r_collision
-Cr = config.Cr   # judge arrival
-Cd = config.Cd   # compute reward if no collision and arrival
+Cr = config.Cr   # compute reward if no collision and arrival  
+Cd = config.Cd   # judge arrival
+Cp = config.Cp   # time step penalty
 v_max = config.v_max  # max linear velocity
 w_max = config.w_max  # max angular velocity
 
@@ -257,7 +258,7 @@ class GazeboMaze(Environment):
 
         if not done:
             delta_d = self.p[0] - d
-            reward = Cr*delta_d - 0.01  # -0.01 is time step penalty
+            reward = Cr*delta_d + Cp 
 
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
