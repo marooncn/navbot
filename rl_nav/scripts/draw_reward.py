@@ -1,21 +1,19 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import argparse
+
 import numpy as np
-import matplotlib
-matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 
 
-def main(args):
-    f = open('PPO_episode1000.txt', 'r')
+def main():
+    f = open('PPO_episode.txt', 'r')
     lines = f.readlines()
     reward = []    
     rewards = []
 
     for i in range(0, len(lines)-10, 10):
-        for j in range(30):
+        for j in range(10):
             line = lines[i+j]  # eg: '[432.1290540951935, 248, True]'
             data = line.split()
             reward.append(float(data[0][1:-1]))  # 432.1290540951935
@@ -48,5 +46,7 @@ def main(args):
     plt.legend(['PPO', 'PPO_remap']) 
     plt.title('performance')
     plt.show()
-    plt.savefig('temp.png') 
+
+main()
+
 
