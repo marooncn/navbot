@@ -8,7 +8,8 @@ input_dim = (48, 64, 3)
 # reward parameter
 r_arrive = 100
 r_collision = -50  # -100
-Cr = 100
+Cr = 100   # compute reward if no collision and arrival  
+Cp = -0.05   # time step penalty
 # goal
 goal_space = []
 start_space = []
@@ -28,7 +29,7 @@ start_space.append(start_space_nav0)
 start_space.append(start_space_nav1)
 start_space.append(start_space_nav2)
 start_space.append(start_space_nav3)
-Cd = 0.02
+Cd = 0.02  # judge arrival
 # max linear velocity
 v_max = 0.5  # m/s
 # max angular velocity
