@@ -1,10 +1,42 @@
 # navbot
+    It's a collection for mapless robot navigation using RGB image as visual input. It contains the test environment, 
+    end-to-end network and the proposed motion planner.
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
+
+## Environment 
+<font face="Times New Roman">I built the environment for testing the algorithms.</font> <br>
+
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/environment.PNG"  align='center' width="600">    
+<font face="Times New Roman">It has the following properties:</font> 
+
+*  Diverse complexity. 
+*  Gym-style Interface.
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/Interface.PNG" align='center' width="500"> 
+
+*  ROS-supporting.
+
+## End-to-end Network
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="400"> <br>
+## Proposed Motion Planner
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/algorithm.PNG" align='center'> 
+
+Compare <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/performance.png" align='center'> 
+
+
+## Install
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
     sudo apt-get install ros-kinetic-turtlebot-*
     sudo apt-get remove ros-kinetic-turtlebot-description
     sudo apt-get install ros-kinetic-kobuki-description
-
-
+    # change to catkin_ws/src
+    git clone https://github.com/marooncn/navbot
+    cd ..
+    catkin_make
+    source ./devel/setup.bash
+    # such as run PPO, you can change the configure in config.py
+    cd src/navbot/rl_nav/scripts
+    python PPO.py
 
 ## Reference
 [WorldModelsExperiments(official)](https://github.com/hardmaru/WorldModelsExperiments)  <br>
