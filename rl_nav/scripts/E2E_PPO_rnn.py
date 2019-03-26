@@ -17,7 +17,7 @@ saver_dir = './models/nav{}'.format(maze_id)
 if not os.path.exists(saver_dir):
     os.makedirs(saver_dir)
 
-summarizer_dir = './record/E2E_PPO_with_Module_model/nav{}'.format(maze_id)
+summarizer_dir = './record/E2E_PPO_rnn/nav{}'.format(maze_id)
 if not os.path.exists(summarizer_dir):
     os.makedirs(summarizer_dir)
 
@@ -70,7 +70,7 @@ exploration = dict(
 
 optimizer = dict(
     type='adam',
-    learning_rate=0.0001
+    learning_rate=0.001
 )
 
 # Instantiate a Tensorforce agent
@@ -81,7 +81,7 @@ agent = PPOAgent(
     # update_mode=update_model,
     # memory=memory,
     # actions_exploration=exploration,
-    saver=dict(directory=saver_dir, basename='E2E_PPO_with_Module_model.ckpt', load=restore, seconds=6000),
+    saver=dict(directory=saver_dir, basename='E2E_PPO_rnn_model.ckpt', load=restore, seconds=6000),
     summarizer=dict(directory=summarizer_dir, labels=["graph", "losses", "reward", "entropy"], seconds=6000),
     step_optimizer=optimizer,
 )
@@ -136,7 +136,7 @@ while True:
     #     print('{}th episode reward: {}'.format(episode, episode_reward))
 
     if episode % 1000 == 0:
-        f = open(record_dir + '/E2E_PPO_with_Module_model_episode' + str(episode) + '.txt', 'w')
+        f = open(record_dir + '/E2E_PPO_rnn_episode' + str(episode) + '.txt', 'w')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')
@@ -152,3 +152,4 @@ while True:
 
     # if episode == max_episodes:
     #     break
+
