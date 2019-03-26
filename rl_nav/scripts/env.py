@@ -24,8 +24,8 @@ import config
 # reward parameter
 r_arrive = config.r_arrive
 r_collision = config.r_collision
-Cr = config.Cr   # compute reward if no collision and arrival  
-Cd = config.Cd   # judge arrival
+Cr = config.Cr   # judge arrival
+Cd = config.Cd   # compute reward if no collision and arrival
 Cp = config.Cp   # time step penalty
 v_max = config.v_max  # max linear velocity
 w_max = config.w_max  # max angular velocity
@@ -74,6 +74,7 @@ class GazeboMaze(Environment):
         '''
         self.goal = []
         self.p = []
+        self.reward = 0
         self.success = False
 
         self.img_height = config.input_dim[0]
@@ -118,13 +119,16 @@ class GazeboMaze(Environment):
         # Resets the state of the environment and returns an initial observation.
         start_index = np.random.choice(len(self.start_space))
         goal_index = np.random.choice(len(self.goal_space))
+        # start_index, goal_index = np.random.choice(len(self.start_space), 2, replace=False)
         start = self.start_space[start_index]
-        theta = np.random.uniform(0, 2.0*math.pi)
+        theta = 4.0/3*math.pi  # np.random.uniform(0, 2.0*math.pi)
         self.set_start(start[0], start[1], theta)
         self.goal = self.goal_space[goal_index]
         d0, alpha0 = self.goal2robot(self.goal[0] - start[0], self.goal[1] - start[1], theta)
         # print(d0, alpha0)
         self.p = [d0, alpha0]  # relative target position
+        self.reward = 0
+
         self.success = False
         self.vel_cmd = [0., 0.]
 
@@ -208,7 +212,7 @@ class GazeboMaze(Environment):
         self.vel_pub.publish(vel_cmd)
 
         done = False
-        reward = 0
+        self.reward = 0
         image_data = None
         cv_image = None
 
@@ -227,7 +231,7 @@ class GazeboMaze(Environment):
         collision = contact_data.states != []
         if collision:
             done = True
-            reward = r_collision
+            self.reward = r_collision
             print("collision!")
         # print(collision, contact_data.states)
 
@@ -252,13 +256,13 @@ class GazeboMaze(Environment):
         # print(d, alpha)
         if d < Cd:
             done = True
-            reward = r_arrive
+            self.reward = r_arrive
             self.success = True
             print("arrival!")
 
         if not done:
             delta_d = self.p[0] - d
-            reward = Cr*delta_d + Cp 
+            self.reward = Cr*delta_d + Cp
 
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
@@ -269,7 +273,7 @@ class GazeboMaze(Environment):
 
         self.p = [d, alpha]
 
-        return observation, done, reward
+        return observation, done, self.reward
 
     @property
     def states(self):

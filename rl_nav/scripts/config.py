@@ -2,14 +2,15 @@ import rospkg
 path = rospkg.RosPack().get_path('rl_nav')
 
 # Environment related
-
+maze_id = 1
+deterministic = False
 # image
 input_dim = (48, 64, 3)
 # reward parameter
 r_arrive = 100
 r_collision = -50  # -100
-Cr = 100   # compute reward if no collision and arrival  
-Cp = -0.05   # time step penalty
+Cr = 100
+Cp = 0  # -0.05 # time step penalty
 # goal
 goal_space = []
 start_space = []
@@ -29,7 +30,7 @@ start_space.append(start_space_nav0)
 start_space.append(start_space_nav1)
 start_space.append(start_space_nav2)
 start_space.append(start_space_nav3)
-Cd = 0.02  # judge arrival
+Cd = 0.02
 # max linear velocity
 v_max = 0.5  # m/s
 # max angular velocity
@@ -37,7 +38,7 @@ w_max = 1.2  # rad/s
 
 # VAE related
 latent_vector_dim = 32
-vae_weight = path + '/scripts/worldModels/models/vae_weights_loss_0.0019.h5'
+vae_weight = path + '/scripts/worldModels/models/vae_weights_desktop.h5'
 
 # MDN-RNN related
 rnn_weight = path + '/scripts/worldModels/models/rnn_weights.h5'
