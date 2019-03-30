@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<robot name="goal">
+  <link name="link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.01" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.2" />
+      </geometry>
+    </visual>
+  </link>
+
+<!--<collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.2" />
+      </geometry>
+    </collision> -->
+
+  <gazebo reference="link">
+    <turnGravityOff>1</turnGravityOff>
+    <material>Gazebo/Blue</material>
+    <selfCollide>0</selfCollide>
+  </gazebo>
+</robot>
