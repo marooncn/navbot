@@ -1,0 +1,22 @@
+<launch>
+  <!-- 设置launch文件参数 -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="debug" default="false" />
+
+  <!-- 运行gazebo仿真环境 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+  </include>
+
+  <param name="goal_description" textfile="$(find rl_nav)/worlds/goal.urdf" />
+
+ <node name="spawn_goal" pkg="gazebo_ros" type="spawn_model" args="-urdf -param goal_description -z 0.1 -model goal" respawn="false" output="screen" />
+
+</launch>

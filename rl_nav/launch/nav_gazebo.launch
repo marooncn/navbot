@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="maze_id" default="0" />
+  <arg name="maze_id" default="1" />
 
   <!-- 设置launch文件参数 -->
   <arg name="world_name" value="$(find rl_nav)/worlds/maze$(arg maze_id).world" />
@@ -35,6 +35,9 @@
   <!-- 在gazebo中加载机器人模型 -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model robot -param robot_description -x 1.0 -y -3.0 -Y 3.14" />
+  
+  <node name="spawn_goal" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+        args="-file $(find rl_nav)/worlds/goal.urdf -urdf -x -3.8 -y -3.8 -z 0.1 -model goal  " />
 
   <!-- 将深度图转换为激光雷达信息(fake laser)
   <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager"/>
@@ -48,3 +51,6 @@
   </node>  -->
 
 </launch>
+
+
+
