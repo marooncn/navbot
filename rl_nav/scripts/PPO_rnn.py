@@ -23,7 +23,7 @@ saver_dir = './models/nav{}'.format(maze_id)
 if not os.path.exists(saver_dir):
     os.makedirs(saver_dir)
 
-summarizer_dir = './record/PPO/nav{}'.format(maze_id)
+summarizer_dir = './record/PPO_rnn/nav{}'.format(maze_id)
 if not os.path.exists(summarizer_dir):
     os.makedirs(summarizer_dir)
 
