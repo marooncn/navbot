@@ -110,7 +110,7 @@ agent = DDPGAgent(
     critic_network=critic_network_spec,
     # update_mode=update_model,
     # memory=memory,
-    # actions_exploration=exploration,
+    actions_exploration=exploration,
     saver=dict(directory=saver_dir, basename='E2E_DDPG_rnn_model.ckpt', load=restore, seconds=6000),
     summarizer=dict(directory=summarizer_dir, labels=["graph", "losses", "reward", "entropy"], seconds=6000),
     optimizer=optimizer,
