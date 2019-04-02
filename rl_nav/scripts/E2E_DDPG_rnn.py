@@ -207,7 +207,7 @@ while True:
         test_rewards.append([episode_reward, timestep, success])
 
         if test_episode % 100 == 0:
-            f = open(record_dir + '/DDPG_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+            f = open(record_dir + '/E2E_DDPG_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
             for i in test_rewards:
                 f.write(str(i))
                 f.write('\n')
