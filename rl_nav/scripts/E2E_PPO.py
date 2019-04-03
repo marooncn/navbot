@@ -126,6 +126,7 @@ while True:
     episode += 1
     total_timestep += timestep
     # avg_reward = float(episode_reward)/timestep
+    successes.append(success)
     episode_rewards.append([episode_reward, timestep, success])
 
     # if total_timestep > 100000:
@@ -141,7 +142,7 @@ while True:
         agent.save_model('./models/')
 
     if len(successes) > 100:
-        if sum(successes[-100:]) > 90:
+        if sum(successes[-100:]) > 80:
             GazeboMaze.close()
             agent.save_model('./models/')
             break
