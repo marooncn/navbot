@@ -196,9 +196,15 @@ while True:
             test_rewards = []
 
         if len(test_successes) > 100:
-            if sum(test_successes[-100:]) > 50:
+            if sum(test_successes[-100:]) > 60:
                 GazeboMaze.close()
                 agent.save_model('./models/')
+                f = open(record_dir + '/PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+                for i in test_rewards:
+                    f.write(str(i))
+                    f.write('\n')
+                f.close()
+                print("Training End!")
                 break
 
     # if episode == max_episodes:
