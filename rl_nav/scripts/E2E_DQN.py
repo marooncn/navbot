@@ -3,7 +3,8 @@ import os
 import env
 import config
 
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 maze_id = config.maze_id
 restore = False
 
@@ -27,9 +28,6 @@ states = dict(
     relative_pos=dict(shape=(2,), type='float')
 )
 
-AModule = True   # is Action Module is valid
-GModule = True   # is Goal Module is valid
-
 
 network_spec = [
      [
@@ -41,10 +39,19 @@ network_spec = [
           dict(type='flatten'),
           dict(type='output', name='image_output')
      ],
-
+     [
+          dict(type='input', names=['previous_act']),
+          dict(type='dense', size=8, activation='relu'),
+          dict(type='output', name='action_output'),
+     ],
+     [
+          dict(type='input', names=['relative_pos']),
+          dict(type='dense', size=16, activation='relu'),
+          dict(type='output', name='position_output'),
+     ],
 
      [
-          dict(type='input', names=['image_output', 'previous_act', 'relative_pos'], aggregation_type='concat'),
+          dict(type='input', names=['image_output', 'action_output', 'position_output'], aggregation_type='concat'),
           dict(type='dense', size=512, activation='relu'),
           dict(type='dense', size=512, activation='relu'),
 
@@ -59,23 +66,24 @@ memory = dict(
 )
 
 exploration = dict(
-    type='epsilon_anneal',
+    type='epsilon_decay',
     initial_epsilon=1.0,
-    final_epsilon=0.2,
-    timesteps=500000
+    final_epsilon=0.1,
+    timesteps=10000,
+    start_timestep=0
 )
 
 update_model = dict(
     unit='timesteps',
-    # 32 timesteps per update
-    batch_size=32,
-    # Every 4 timesteps
-    frequency=4
+    # 64 timesteps per update
+    batch_size=64,
+    # Every 64 timesteps
+    frequency=64
 )
 
 optimizer = dict(
     type='adam',
-    learning_rate=5e-3
+    learning_rate=0.0001
 )
 
 # Instantiate a Tensorforce agent
@@ -86,12 +94,10 @@ agent = DQNAgent(
     # update_mode=update_model,
     # memory=memory,
     actions_exploration=exploration,
-    saver=dict(directory=saver_dir, basename='E2E_DQN_model.ckpt', load=restore, seconds=10800),
-    summarizer=dict(directory=summarizer_dir, labels=["graph", "losses", "reward"], seconds=10800),
+    saver=dict(directory='./models', basename='E2E_DQN_model.ckpt', load=restore, seconds=6000),
+    summarizer=dict(directory='./record/E2E_DQN', labels=["graph", "losses", "reward", "'entropy'"], seconds=6000),
     optimizer=optimizer,
-    # # target_sync_frequency=1000,  # Target network sync frequency
-    double_q_model=True,
-    huber_loss=1.0  # Huber loss clipping
+    double_q_model=True
 )
 
 
@@ -113,14 +119,16 @@ while True:
     success = False
 
     while True:
-        previous_act = GazeboMaze.vel_cmd
-        print(previous_act)
-        relative_pos = GazeboMaze.p
-        state = dict(image=observation, previous_act=previous_act, relative_pos=relative_pos)
+        state = dict()
+        state['image'] = observation,
+        state['previous_act'] = GazeboMaze.vel_cmd,
+        state['relative_pos'] = GazeboMaze.p,
         # state = dict(image=observation, previous_act=GazeboMaze.vel_cmd, relative_pos=GazeboMaze.p)
+        # print(state)
 
         # Query the agent for its action decision
         action = agent.act(state)
+        print(action)
         # Execute the decision and retrieve the current information
         observation, terminal, reward = GazeboMaze.execute(action)
         observation = observation / 255.0  # normalize
@@ -136,13 +144,14 @@ while True:
     episode += 1
     total_timestep += timestep
     # avg_reward = float(episode_reward)/timestep
+    successes.append(success)
     episode_rewards.append([episode_reward, timestep, success])
 
     # if total_timestep > 100000:
     #     print('{}th episode reward: {}'.format(episode, episode_reward))
 
-    if episode % 1000 == 0:
-        f = open(record_dir + '/E2E_DQN_episode' + str(episode) + '.txt', 'w')
+    if episode % 100 == 0:
+        f = open(record_dir + '/E2E_DQN_nav' + str(maze_id) + '.txt', 'a+')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')
@@ -151,10 +160,13 @@ while True:
         agent.save_model('./models/')
 
     if len(successes) > 100:
-        if sum(successes[-100:]) > 90:
+        if sum(successes[-100:]) > 80:
             GazeboMaze.close()
             agent.save_model('./models/')
+            f = open(record_dir + '/DQN_nav' + str(maze_id) + '.txt', 'a+')
+            for i in episode_rewards:
+                f.write(str(i))
+                f.write('\n')
+            f.close()
+            print("Training End!")
             break
-
-    # if episode == max_episodes:
-    #     break
