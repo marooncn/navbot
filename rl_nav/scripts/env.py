@@ -121,9 +121,10 @@ class GazeboMaze(Environment):
         goal_index = np.random.choice(len(self.goal_space))
         # start_index, goal_index = np.random.choice(len(self.start_space), 2, replace=False)
         start = self.start_space[start_index]
-        theta = 4.0/3*math.pi  # np.random.uniform(0, 2.0*math.pi)
+        theta =  np.random.uniform(0, 2.0*math.pi)  # 1.0/2*math.pi  # 4.0/3*math.pi  #  
         self.set_start(start[0], start[1], theta)
         self.goal = self.goal_space[goal_index]
+        self.set_goal(self.goal[0], self.goal[1])
         d0, alpha0 = self.goal2robot(self.goal[0] - start[0], self.goal[1] - start[1], theta)
         # print(d0, alpha0)
         self.p = [d0, alpha0]  # relative target position
@@ -210,6 +211,7 @@ class GazeboMaze(Environment):
 
         self.vel_cmd = [vel_cmd.linear.x, vel_cmd.angular.z]
         self.vel_pub.publish(vel_cmd)
+        time.sleep(0.05)
 
         done = False
         self.reward = 0
@@ -307,9 +309,7 @@ class GazeboMaze(Environment):
 
     def goal2robot(self, d_x, d_y, theta):
         d = math.sqrt(d_x * d_x + d_y * d_y)
-        x = d_y*math.cos(theta)-d_x*math.sin(theta)
-        y = d_y*math.sin(theta)+d_x*math.cos(theta)
-        alpha = math.atan2(y, x)
+        alpha = math.atan2(d_y, d_x) - theta
         return d, alpha
 
     def set_start(self, x, y, theta):
@@ -332,6 +332,22 @@ class GazeboMaze(Environment):
         state.twist.angular.x = 0
         state.twist.angular.y = 0
         state.twist.angular.z = 0
+
+        rospy.wait_for_service('/gazebo/set_model_state')
+        try:
+            set_state = self.set_state
+            result = set_state(state)
+            assert result.success is True
+        except rospy.ServiceException:
+            print("/gazebo/get_model_state service call failed")
+
+    def set_goal(self, x, y):
+        state = ModelState()
+        state.model_name = 'goal'
+        state.reference_frame = 'world'  # ''ground_plane'
+        state.pose.position.x = x
+        state.pose.position.y = y
+        state.pose.position.z = 0.1
 
         rospy.wait_for_service('/gazebo/set_model_state')
         try:
