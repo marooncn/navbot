@@ -27,10 +27,6 @@ states = dict(
     relative_pos=dict(shape=(2,), type='float')
 )
 
-AModule = True   # is Action Module is valid
-GModule = True   # is Goal Module is valid
-
-
 network_spec = [
      [
           dict(type='input', names=['image']),
@@ -132,8 +128,8 @@ while True:
     # if total_timestep > 100000:
     #     print('{}th episode reward: {}'.format(episode, episode_reward))
 
-    if episode % 1000 == 0:
-        f = open(record_dir + '/DQN_episode' + str(episode) + '.txt', 'w')
+    if episode % 100 == 0:
+        f = open(record_dir + '/E2E_PPO_nav' + str(maze_id) + '.txt', 'a+')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')
@@ -145,7 +141,14 @@ while True:
         if sum(successes[-100:]) > 80:
             GazeboMaze.close()
             agent.save_model('./models/')
+            f = open(record_dir + '/E2E_PPO_nav' + str(maze_id) + '.txt', 'a+')
+            for i in episode_rewards:
+                f.write(str(i))
+                f.write('\n')
+            f.close()
+            print("Training End!")
             break
 
     # if episode == max_episodes:
     #     break
+

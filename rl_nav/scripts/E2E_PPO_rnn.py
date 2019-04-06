@@ -5,7 +5,7 @@ import config
 
 # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 maze_id = config.maze_id
-restore = False
+restore = True  # False
 
 GazeboMaze = env.GazeboMaze(maze_id=maze_id, continuous=True)
 
@@ -176,7 +176,7 @@ while True:
         test_rewards.append([episode_reward, timestep, success])
 
         if test_episode % 100 == 0:
-            f = open(record_dir + '/PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+            f = open(record_dir + '/E2E_PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
             for i in test_rewards:
                 f.write(str(i))
                 f.write('\n')
@@ -184,7 +184,13 @@ while True:
             test_rewards = []
 
         if len(test_successes) > 100:
-            if sum(test_successes[-100:]) > 50:
+            if sum(test_successes[-100:]) > 60:
                 GazeboMaze.close()
                 agent.save_model('./models/')
+                f = open(record_dir + '/E2E_PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+                for i in test_rewards:
+                    f.write(str(i))
+                    f.write('\n')
+                f.close()
+                print("Training End!")
                 break
