@@ -126,8 +126,8 @@ while True:
     # if total_timestep > 100000:
     #     print('{}th episode reward: {}'.format(episode, episode_reward))
 
-    if episode % 1000 == 0:
-        f = open(record_dir + '/PPO_episode' + str(episode) + '.txt', 'a+')
+    if episode % 100 == 0:
+        f = open(record_dir + '/PPO_nav' + str(maze_id) + '.txt', 'a+')
         for i in episode_rewards:
             f.write(str(i))
             f.write('\n')
@@ -139,7 +139,14 @@ while True:
         if sum(successes[-100:]) > 80:
             GazeboMaze.close()
             agent.save_model('./models/')
+            f = open(record_dir + '/PPO_nav' + str(maze_id) + '.txt', 'a+')
+            for i in episode_rewards:
+                f.write(str(i))
+                f.write('\n')
+            f.close()
+            print("Training End!")
             break
 
     # if episode == max_episodes:
     #     break
+
