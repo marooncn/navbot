@@ -36,6 +36,7 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model robot -param robot_description -x 1.0 -y -3.0 -Y 3.14" />
   
+  <!-- 加载导航目标 -->
   <node name="spawn_goal" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
         args="-file $(find rl_nav)/worlds/goal.urdf -urdf -x -3.8 -y -3.8 -z 0.1 -model goal  " />
 
