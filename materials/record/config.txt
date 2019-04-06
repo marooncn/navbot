@@ -1,0 +1,38 @@
+################################## Dense ##################################
+# reward parameter
+r_arrive = 100
+r_collision = -50 
+Cr = 100
+Cp = -0.05  # time step penalty
+# goal
+goal_space = []
+start_space = []
+test_space = []
+goal_space_nav0 = []
+goal_space_nav1 = [[-3.8, -3.8]]
+goal_space_nav2 = [[-3, -3.2]]
+
+start_space_nav0 = []
+start_space_nav1 = [[-0.4, -2.6]]   # ,4.0/3*math.pi
+start_space_nav2 = [[0.65, -3.0]]  # ,1.0/2*math.pi
+
+goal_space.append(goal_space_nav0)
+goal_space.append(goal_space_nav1)
+goal_space.append(goal_space_nav2)
+
+start_space.append(start_space_nav0)
+start_space.append(start_space_nav1)
+start_space.append(start_space_nav2)
+# step, every step sleep 0.05s
+Cd = 0.1  
+# max linear velocity
+v_max = 0.5  # m/s
+# max angular velocity
+w_max = 1.2  # rad/s
+
+# VAE related
+latent_vector_dim = 32
+vae_weight = path + '/scripts/worldModels/models/vae_weights_desktop.h5'
+
+################################## Rnn ##################################
+
