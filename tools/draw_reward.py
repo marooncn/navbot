@@ -60,7 +60,7 @@ def main():
     plt.ylabel("average reward", fontsize=size, fontweight='bold')
 
     plt.title('maze1', fontsize=size, fontweight='bold')
-    # plt.legend()          #显示各曲线的图例
+    # plt.legend()  # 显示各曲线的图例
     plt.legend(loc=4, numpoints=1)  # lower right
     leg = plt.gca().get_legend()
     ltext = leg.get_texts()
