@@ -184,7 +184,7 @@ while True:
             test_rewards = []
 
         if len(test_successes) > 100:
-            if sum(test_successes[-100:]) > 50:
+            if sum(test_successes[-100:]) > 60:
                 GazeboMaze.close()
                 agent.save_model('./models/')
                 # save test data
