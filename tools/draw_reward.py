@@ -3,7 +3,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import mpl_toolkits.axisartist as axisartist
 
 plt.rcParams['font.sans-serif'] = ['Times New Roman']  # 如果要显示中文字体,则在此处设为：SimHei
 plt.rcParams['axes.unicode_minus'] = False  # 显示负号
