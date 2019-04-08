@@ -5,7 +5,7 @@ import config
 
 # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 maze_id = config.maze_id
-restore = True  # False
+restore = False
 
 GazeboMaze = env.GazeboMaze(maze_id=maze_id, continuous=True)
 
