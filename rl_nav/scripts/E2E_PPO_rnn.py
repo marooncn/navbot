@@ -176,7 +176,7 @@ while True:
         test_rewards.append([episode_reward, timestep, success])
 
         if test_episode % 100 == 0:
-            f = open(record_dir + '/PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+            f = open(record_dir + '/E2E_PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
             for i in test_rewards:
                 f.write(str(i))
                 f.write('\n')
@@ -187,4 +187,17 @@ while True:
             if sum(test_successes[-100:]) > 50:
                 GazeboMaze.close()
                 agent.save_model('./models/')
+                # save test data
+                f = open(record_dir + '/E2E_PPO_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+                for i in test_rewards:
+                    f.write(str(i))
+                    f.write('\n')
+                f.close()
+                # save training data
+                f = open(record_dir + '/E2E_PPO_rnn_nav{}'.format(maze_id) + '.txt', 'a+')
+                for i in episode_rewards:
+                    f.write(str(i))
+                    f.write('\n')
+                f.close()
+                print("Training End!")
                 break
