@@ -214,8 +214,22 @@ while True:
             f.close()
             test_rewards = []
 
+
         if len(test_successes) > 100:
-            if sum(test_successes[-100:]) > 50:
+            if sum(test_successes[-100:]) > 60:
                 GazeboMaze.close()
                 agent.save_model('./models/')
+                # save test data
+                f = open(record_dir + '/E2E_DDPG_rnn_test_nav{}'.format(maze_id) + '.txt', 'a+')
+                for i in test_rewards:
+                    f.write(str(i))
+                    f.write('\n')
+                f.close()
+                # save training data
+                f = open(record_dir + '/E2E_DDPG_rnn_nav{}'.format(maze_id) + '.txt', 'a+')
+                for i in episode_rewards:
+                    f.write(str(i))
+                    f.write('\n')
+                f.close()
+                print("Training End!")
                 break
