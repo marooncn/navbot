@@ -52,18 +52,18 @@ def main():
     plt.plot(range(len(rewards2)), rewards2, color="green", label="Benchmark", linewidth=1.5)
 
     size = 22
-    plt.xticks(fontsize=size, fontweight='bold')  # 默认字体大小为10
-    plt.yticks(fontsize=size, fontweight='bold')
+    plt.xticks(fontsize=size)  # 默认字体大小为10
+    plt.yticks(fontsize=size)
     # plt.title("example", fontsize=12, fontweight='bold')  # 默认字体大小为12
-    plt.xlabel("50*episodes", fontsize=size, fontweight='bold')
-    plt.ylabel("average reward", fontsize=size, fontweight='bold')
+    plt.xlabel("50*episodes", fontsize=size)
+    plt.ylabel("average reward", fontsize=size)
 
-    plt.title('maze1', fontsize=size, fontweight='bold')
+    plt.title('maze1', fontsize=size)
     # plt.legend()  # 显示各曲线的图例
     plt.legend(loc=4, numpoints=1)  # lower right
     leg = plt.gca().get_legend()
     ltext = leg.get_texts()
-    plt.setp(ltext, fontsize=size, fontweight='bold')  # 设置图例字体的大小和粗细
+    plt.setp(ltext, fontsize=size)  # 设置图例字体的大小和粗细
     
     axes = plt.gca()
     axes.set_xlim([None, None])
