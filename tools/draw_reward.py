@@ -64,6 +64,9 @@ def main():
     leg = plt.gca().get_legend()
     ltext = leg.get_texts()
     plt.setp(ltext, fontsize=size, fontweight='bold')  # 设置图例字体的大小和粗细
+    
+    axes = plt.gca()
+    axes.set_xlim([None, None])
 
     plt.savefig('../result/maze1_dense_reward.png')
     plt.show()
