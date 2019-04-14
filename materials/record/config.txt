@@ -1,4 +1,5 @@
 ################################## Dense ##################################
+input_dim = (48, 64, 3)
 # reward parameter
 r_arrive = 100
 r_collision = -50 
@@ -35,4 +36,30 @@ latent_vector_dim = 32
 vae_weight = path + '/scripts/worldModels/models/vae_weights_desktop.h5'
 
 ################################## Rnn ##################################
+input_dim = (48, 64, 3)
+# reward parameter
+r_arrive = 100
+r_collision = -50 
+Cr = 100
+Cp = -0.05  # time step penalty
+# goal
+goal_space = []
+start_space = []
+test_space = []
+goal_space_nav0 = []
+test_space_nav0 = []
+goal_space_nav1 = [[-3.8, -3.8], [-1.5, -4], [-3, -2.2]]
+test_space_nav1 = [goal_space_nav1[-1]]
+goal_space_nav2 = [[-3, -3.2], [-1.8, -3.2], [-2, -2.6], [-0.8, -3.5], [-0.4, -2.6], [-2.5, -3], [-3, -3], [-2, -1.9],
+                   [-1.3, -3.8], [-3.3, -4], [-3, -3.8], [-2, -3.2]]
+test_space_nav2 = [goal_space_nav2[-1], goal_space_nav2[-2]]
+start_space_nav0 = []
+start_space_nav1 = [[-0.4, -2.6]]   # ,4.0/3*math.pi
+start_space_nav2 = [[0.65, -3.0]]  # ,1.0/2*math.pi
+
+Cd = 0.354/2   #  =r 
+# max linear velocity
+v_max = 0.3    #  m/s
+# max angular velocity
+w_max = 1.0    #  rad/s
 
