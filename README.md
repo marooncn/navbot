@@ -30,7 +30,7 @@
 ### VAE-based Proposed Planner Compared with  benchmark 
 1. The proposed is blue trajectory and the benchmark is green. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="300"> <br>
-2. The reward comparision in maze1. <br>
+2. The success rate comparision in maze1. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="500"> 
 
 ## From Memorizing to Reasoning
