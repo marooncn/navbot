@@ -22,11 +22,14 @@
 
 #### Result 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
+
 ### VAE-based Proposed Planner Compared with  benchmark 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="500"> 
 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="300"> 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="400"> 
+
+## From Memorizing to Reasoning
+
 
 
 
