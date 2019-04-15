@@ -16,6 +16,8 @@
 *  ROS-supporting.
 
 ## Memorize
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/PPO_nav2.gif" align='center' width="500"> 
+
 ### VAE
 #### Structure 
 
@@ -29,9 +31,19 @@
 1. The proposed is blue trajectory and the benchmark is green. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="300"> <br>
 2. The reward comparision in maze1. <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="500"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="500"> 
 
 ## From Memorizing to Reasoning
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/PPO_rnn_nav2.gif" align='center' width="500"> 
+
+### Stacked LSTM and network structure
+Stacked LSTM <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/stacked%20LSTM.png" width="300"> 
+network structure <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/rnn.png" width="300"> 
+### Result
+Success rate in maze1
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_rnn_success.png" width="300"> 
 
 
 
@@ -48,7 +60,10 @@
     source ./devel/setup.bash
     # such as run PPO, you can change the configure in config.py
     cd src/navbot/rl_nav/scripts
+    # run the proposed model for memorizing
     python PPO.py
+    # run the proposed model for reasoning
+    python E2E_PPO_rnn.py
 
 ## Reference
 [WorldModelsExperiments(official)](https://github.com/hardmaru/WorldModelsExperiments)  <br>
