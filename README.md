@@ -38,12 +38,12 @@
 
 ### Stacked LSTM and network structure
 Stacked LSTM <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/stacked%20LSTM.png" width="300"> <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/stacked%20LSTM.png" width="500"> <br>
 network structure <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/rnn.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/rnn.png" width="500"> 
 ### Result
 Success rate in maze1 <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_rnn_success.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_rnn_success.png" width="500"> 
 
 
 
