@@ -16,7 +16,7 @@
 *  ROS-supporting.
 
 ## Memorize
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/PPO_nav2.gif" align='center' width="500"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
 
 ### VAE
 #### Structure 
@@ -38,11 +38,11 @@
 
 ### Stacked LSTM and network structure
 Stacked LSTM <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/stacked%20LSTM.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/stacked%20LSTM.png" width="300"> <br>
 network structure <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/rnn.png" width="300"> 
 ### Result
-Success rate in maze1
+Success rate in maze1 <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_rnn_success.png" width="300"> 
 
 
