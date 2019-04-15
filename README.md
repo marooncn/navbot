@@ -17,11 +17,11 @@
 
 ## Memorize
 ### VAE
-#### Structure 
+#### Structure <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
-#### Result
+#### Result <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
-### VAE-based Proposed Planner Compared with  benchmark
+### VAE-based Proposed Planner Compared with  benchmark 
 ![dense1](https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png)
 ![success1](https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png)
 ![dense2](https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_reward.png)
