@@ -1,6 +1,6 @@
 # navbot
-    It's a collection for mapless robot navigation using RGB image as visual input. It contains the test environment, 
-    end-to-end network and the proposed motion planner.
+    It's a collection for mapless robot navigation using RGB image as visual input. It contains the test 
+    environment, end-to-end network and the proposed motion planner.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
 
 ## Environment 
@@ -18,15 +18,14 @@
 ## Memorize
 ### VAE
 #### Structure 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="500"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
 #### Result
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 ### VAE-based Proposed Planner Compared with  benchmark
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="300"> 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="300"> 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_reward.png" width="300"> 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_success.png" width="300"> 
-
+![dense1](https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png)
+![success1](https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png)
+![dense2](https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_reward.png)
+![success2](https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_success.png)
 
 ## Install
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
