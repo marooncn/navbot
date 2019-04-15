@@ -1,6 +1,6 @@
 # navbot
     It's a collection for mapless robot navigation using RGB image as visual input. It contains the test 
-    environment and motion planner, aiming to realize the three levels of mapless navigation.
+    environment and motion planner, aiming at realizing the three levels of mapless navigation.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
 
 ## Environment 
