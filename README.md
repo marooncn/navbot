@@ -18,15 +18,17 @@
 ## Memorize
 ### VAE
 #### Structure 
+
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
 
 #### Result 
+
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
 ### VAE-based Proposed Planner Compared with  benchmark 
-The proposed is blue trajectory and the benchmark is green.
+The proposed is blue trajectory and the benchmark is green. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="300"> 
-The reward comparision in maze1.
+The reward comparision in maze1. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="500"> 
 
 ## From Memorizing to Reasoning
