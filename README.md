@@ -15,13 +15,17 @@
 
 *  ROS-supporting.
 
-## End-to-end Network
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="400"> <br>
-## Proposed Motion Planner
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/algorithm.PNG" align='center'> 
-
-Compare <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/performance.png" align='center'> 
+## Memorize
+### VAE
+#### Structure 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="500"> 
+#### Result
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
+### VAE-based Proposed Planner Compared with  benchmark
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_reward.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_success.png" width="300"> 
 
 
 ## Install
