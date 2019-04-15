@@ -15,7 +15,7 @@
 
 *  ROS-supporting.
 
-## Memorize
+## Memorizing
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
 
 ### VAE
