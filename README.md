@@ -17,15 +17,18 @@
 
 ## Memorize
 ### VAE
-#### Structure <br>
+#### Structure 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
-#### Result <br>
+
+#### Result 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 ### VAE-based Proposed Planner Compared with  benchmark 
-![dense1](https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png)
-![success1](https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png)
-![dense2](https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_reward.png)
-![success2](https://github.com/marooncn/navbot/blob/master/materials/result/maze2_dense_success.png)
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="500"> 
+
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_reward.png" width="300"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="300"> 
+
+
 
 ## Install
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
