@@ -1,6 +1,6 @@
 # navbot
     It's a collection for mapless robot navigation using RGB image as visual input. It contains the test 
-    environment and motion planner, aiming at realizing all the three levels of mapless navigation:
+    environment and motion planners, aiming at realizing all the three levels of mapless navigation:
     1. memorizing efficiently; 
     2. from memorizing to reasoning; 
     3. more powerful reasoning
