@@ -1,6 +1,10 @@
 # navbot
     It's a collection for mapless robot navigation using RGB image as visual input. It contains the test 
-    environment and motion planner, aiming at realizing the three levels of mapless navigation.
+    environment and motion planner, aiming at realizing all the three levels of mapless navigation:
+    1. memorizing efficiently; 
+    2. from memorizing to reasoning; 
+    3. more powerful reasoning
+    The simulation experiment data is in the ./materials/record folder.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
 
 ## Environment 
@@ -58,7 +62,7 @@ Success rate in maze1 <br>
     cd ..
     catkin_make
     source ./devel/setup.bash
-    # such as run PPO, you can change the configure in config.py
+    # you can change the configure in config.py
     cd src/navbot/rl_nav/scripts
     # run the proposed model for memorizing
     python PPO.py
