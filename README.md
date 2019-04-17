@@ -17,7 +17,7 @@
 *  Gym-style Interface.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/Interface.PNG" align='center' width="500"> 
 
-*  ROS-supporting.
+*  Support ROS.
 
 ## Memorizing
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
@@ -55,7 +55,7 @@ Success rate in maze1 <br>
 ## Install
 #### Ddependencies
 tensorflow: 1.5.0 <br>
-Linux: Ubuntu 16.04  <br>
+OS: Ubuntu 16.04  <br>
 ROS: Kinetic  <br>
 Gazebo: 7   <br>
 tensorforce: https://github.com/tensorforce/tensorforce  <br>
@@ -77,15 +77,15 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
     # run the proposed model for reasoning
     python E2E_PPO_rnn.py
 #### Details
-The default environment is maze1, you need to change maze_id in ![nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) if you want change the environment. <br>
-maze1 and maze2 are speeded up 10 times to train, if you want speed up other environments, just change 
+1. The default environment is maze1, you need to change maze_id in ![nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) if you want change the environment. <br>
+2. maze1 and maze2 are speeded up 10 times to train, if you want speed up other environments, just change 
 
-      <max_step_size>0.001</max_step_size>
-      <real_time_factor>1</real_time_factor>
+       <max_step_size>0.001</max_step_size>
+       <real_time_factor>1</real_time_factor>
 to
 
-      <max_step_size>0.01</max_step_size>
-      <!-- <real_time_factor>1</real_time_factor>  -->
+       <max_step_size>0.01</max_step_size>
+       <!-- <real_time_factor>1</real_time_factor>  -->
 in the environment file in the world.
 
 ## Reference
