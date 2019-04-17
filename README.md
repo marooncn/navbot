@@ -86,7 +86,7 @@ to
 
        <max_step_size>0.01</max_step_size>
        <!-- <real_time_factor>1</real_time_factor>  -->
-in the environment file in the world.
+in the environment file in ![worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
 
 ## Reference
 [tensorforce](https://github.com/tensorforce/tensorforce)([blog](https://www.jiqizhixin.com/articles/2017-07-14-7?from=synced&keyword=tensorforce)) <br>
