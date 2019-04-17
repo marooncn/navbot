@@ -87,7 +87,11 @@ to
        <max_step_size>0.01</max_step_size>
        <!-- <real_time_factor>1</real_time_factor>  -->
 in the environment file in [worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
+## Cite
+If your find our work is helpful in your research, please cite the following paper:
 
+* [Using RGB Image as Visual Input for Mapless Robot Navigation](https://arxiv.org/ftp/arxiv/papers/1903/1903.09927.pdf) (IEEE ITSC 2019 , under review)
+* [Learning to Navigate in Indoor Environments: from Memorizing to Reasoning](https://arxiv.org/ftp/arxiv/papers/1904/1904.06933.pdf) (IEEE ITSC 2019 , under review)
 ## Reference
 [tensorforce](https://github.com/tensorforce/tensorforce)([blog](https://www.jiqizhixin.com/articles/2017-07-14-7?from=synced&keyword=tensorforce)) <br>
 [gym_gazebo](https://github.com/erlerobot/gym-gazebo/blob/master/gym_gazebo/envs/turtlebot/gazebo_circuit2c_turtlebot_camera_nn.py) <br>
