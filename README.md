@@ -53,6 +53,14 @@ Success rate in maze1 <br>
 
 
 ## Install
+#### Ddependencies
+tensorflow: 1.5.0 <br>
+Linux: Ubuntu 16.04  <br>
+ROS: Kinetic  <br>
+Gazebo: 7   <br>
+tensorforce: https://github.com/tensorforce/tensorforce  <br>
+    
+#### Run
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
     sudo apt-get install ros-kinetic-turtlebot-*
     sudo apt-get remove ros-kinetic-turtlebot-description
@@ -68,13 +76,24 @@ Success rate in maze1 <br>
     python PPO.py
     # run the proposed model for reasoning
     python E2E_PPO_rnn.py
+#### Details
+The default environment is maze1, you need to change maze_id in ![nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) if you want change the environment. <br>
+maze1 and maze2 are speeded up 10 times to train, if you want speed up other environments, just change 
+
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+to
+
+      <max_step_size>0.01</max_step_size>
+      <!-- <real_time_factor>1</real_time_factor>  -->
+in the environment file in the world.
 
 ## Reference
-[WorldModelsExperiments(official)](https://github.com/hardmaru/WorldModelsExperiments)  <br>
-[WorldModels(by Applied Data Science)](https://github.com/AppliedDataSciencePartners/WorldModels) <br>
 [tensorforce](https://github.com/tensorforce/tensorforce)([blog](https://www.jiqizhixin.com/articles/2017-07-14-7?from=synced&keyword=tensorforce)) <br>
 [gym_gazebo](https://github.com/erlerobot/gym-gazebo/blob/master/gym_gazebo/envs/turtlebot/gazebo_circuit2c_turtlebot_camera_nn.py) <br>
 [gazebo](http://wiki.ros.org/gazebo) <br>
 [roslaunch python API](http://wiki.ros.org/roslaunch/API%20Usage) <br>
 [turtlebot_description](https://github.com/turtlebot/turtlebot/tree/kinetic/turtlebot_description) <br>
 [kobuki_description](https://github.com/yujinrobot/kobuki/tree/devel/kobuki_description) <br>
+[WorldModelsExperiments(official)](https://github.com/hardmaru/WorldModelsExperiments)  <br>
+[WorldModels(by Applied Data Science)](https://github.com/AppliedDataSciencePartners/WorldModels) <br>
