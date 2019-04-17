@@ -87,7 +87,7 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
        <max_step_size>0.01</max_step_size>
        <!-- <real_time_factor>1</real_time_factor> -->
    in the environment file in [worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
-3. To reproduce the result, please change the related parameters in config.py according to ./materials/record/config.txt
+3. To reproduce the result, please change the related parameters in config.py according to [config.txt](https://github.com/marooncn/navbot/blob/master/materials/record/config.txt).
 ## Cite
 If your find the work is helpful in your research, please cite the following papers:
 
