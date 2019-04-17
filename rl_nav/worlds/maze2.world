@@ -63,9 +63,9 @@
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
     <physics name='default_physics' default='0' type='ode'>
-      <max_step_size>0.001</max_step_size>
-      <real_time_factor>1</real_time_factor>
+      <max_step_size>0.01</max_step_size>
       <real_time_update_rate>1000</real_time_update_rate>
+      <!-- <real_time_factor>1</real_time_factor> -->
     </physics>
     <scene>
       <ambient>0.4 0.4 0.4 1</ambient>
@@ -436,10 +436,10 @@
       <static>1</static>
     </model>
     <state world_name='default'>
-      <sim_time>41 809000000</sim_time>
-      <real_time>41 973511799</real_time>
-      <wall_time>1551698036 108472665</wall_time>
-      <iterations>41809</iterations>
+      <sim_time>4375 659000000</sim_time>
+      <real_time>434 515193556</real_time>
+      <wall_time>1554033156 868355013</wall_time>
+      <iterations>433385</iterations>
       <model name='env3'>
         <pose frame=''>-1.285 -2.935 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -456,7 +456,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_11'>
-          <pose frame=''>-1.62413 -3.75087 0 0 -0 0</pose>
+          <pose frame=''>-2.085 -3.935 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -480,13 +480,13 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_7'>
-          <pose frame=''>-2.64913 -2.53326 0 0 0 -1.5708</pose>
+          <pose frame=''>-2.785 -1.935 0 0 0 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_9'>
-          <pose frame=''>-0.835869 -2.51478 0 0 -0 0</pose>
+          <pose frame=''>-1.185 -2.535 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -508,7 +508,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-0.670007 -4.80844 10.0879 0 1.4058 1.6202</pose>
+        <pose frame=''>-1.68505 -3.58802 10.7787 1e-05 1.5698 0.180161</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
