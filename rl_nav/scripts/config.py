@@ -48,6 +48,3 @@ w_max = 1.0  # 1.2  # rad/s
 # VAE related
 latent_vector_dim = 32
 vae_weight = path + '/scripts/worldModels/models/vae_weights_laptop.h5'
-
-# MDN-RNN related
-rnn_weight = path + '/scripts/worldModels/models/rnn_weights.h5'
