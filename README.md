@@ -86,7 +86,7 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
  
        <max_step_size>0.01</max_step_size>
        <!-- <real_time_factor>1</real_time_factor> -->
-in the environment file in [worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
+   in the environment file in [worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
 ## Cite
 If your find the work is helpful in your research, please cite the following papers:
 
