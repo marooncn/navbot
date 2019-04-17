@@ -77,7 +77,7 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
     # run the proposed model for reasoning
     python E2E_PPO_rnn.py
 #### Details
-1. The default environment is maze1, you need to change maze_id in [nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) if you want change the environment. <br>
+1. The default environment is maze1, you need to change maze_id in [nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) and [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) if you want change the environment. <br>
 2. maze1 and maze2 are speeded up 10 times to train, if you want speed up other environments, just change 
 
        <max_step_size>0.001</max_step_size>
@@ -88,6 +88,8 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
        <!-- <real_time_factor>1</real_time_factor> -->
    in the environment file in [worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
 3. To reproduce the result, please change the related parameters in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) according to [config.txt](https://github.com/marooncn/navbot/blob/master/materials/record/config.txt).
+4. PPO is not a deterministic policy gradient algorithm, the action at every timestep is sampled according to the distribution. It can be seen as "noise" and it's useful for explorations and generalizations. If you want to use the best strategy after the model is trained, just change 'deterministic = True' in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) and the performance will be improved.
+
 ## Cite
 If your find the work is helpful in your research, please cite the following papers:
 
