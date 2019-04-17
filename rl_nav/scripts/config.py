@@ -2,7 +2,7 @@ import rospkg
 path = rospkg.RosPack().get_path('rl_nav')
 
 # Environment related
-maze_id = 2
+maze_id = 1
 deterministic = False
 # image
 input_dim = (48, 64, 3)
