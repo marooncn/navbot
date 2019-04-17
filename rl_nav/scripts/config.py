@@ -4,6 +4,7 @@ path = rospkg.RosPack().get_path('rl_nav')
 # Environment related
 maze_id = 1
 deterministic = False
+continuous = True  # if the action space is continuous. True for PPO, DDPG and False for DQN
 # image
 input_dim = (48, 64, 3)
 # reward parameter
