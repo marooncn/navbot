@@ -29,13 +29,13 @@ Cd = config.Cd   # compute reward if no collision and arrival
 Cp = config.Cp   # time step penalty
 v_max = config.v_max  # max linear velocity
 w_max = config.w_max  # max angular velocity
-
+continuous = config.continuous
 
 class GazeboMaze(Environment):
     """
     Base environment class.
     """
-    def __init__(self, maze_id=0, continuous=True):
+    def __init__(self, maze_id=0, continuous=continuous):
         self.maze_id = maze_id
         self.continuous = continuous
         self.goal_space = config.goal_space[maze_id]
