@@ -56,6 +56,7 @@ Success rate in maze1 <br>
 #### Ddependencies
 tensorflow: 1.5.0 <br>
 OS: Ubuntu 16.04  <br>
+Python: 2.7 <br>
 ROS: Kinetic  <br>
 Gazebo: 7   <br>
 tensorforce: https://github.com/tensorforce/tensorforce  <br>
