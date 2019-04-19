@@ -59,18 +59,21 @@ def main():
     plt.plot(range(len(successes2)), successes2, color="green", label="Benchmark", linewidth=1.5)
 
     size = 22
-    plt.xticks(fontsize=size, fontweight='bold')  # 默认字体大小为10
-    plt.yticks(fontsize=size, fontweight='bold')
+    plt.xticks(fontsize=size)  # 默认字体大小为10
+    plt.yticks(fontsize=size)
     # plt.title("example", fontsize=12, fontweight='bold')  # 默认字体大小为12
-    plt.xlabel("episode", fontsize=size, fontweight='bold')
-    plt.ylabel("success rate(%)", fontsize=size, fontweight='bold')
+    plt.xlabel("episode", fontsize=size)
+    plt.ylabel("success rate(%)", fontsize=size)
 
-    plt.title('maze1', fontsize=size, fontweight='bold')
+    plt.title('maze1', fontsize=size)
     # plt.legend()   # 显示各曲线的图例
     plt.legend(loc=4, numpoints=1)  # lower right
     leg = plt.gca().get_legend()
     ltext = leg.get_texts()
-    plt.setp(ltext, fontsize=size, fontweight='bold')  # 设置图例字体的大小和粗细
+    plt.setp(ltext, fontsize=size)  # 设置图例字体的大小和粗细
+    
+    axes = plt.gca()
+    # axes.set_xlim([None, None])  # 限定X轴的范围
 
     plt.savefig('../result/maze1_dense_success.png')
     plt.show()
