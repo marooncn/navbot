@@ -66,7 +66,7 @@ def main():
     plt.setp(ltext, fontsize=size)  # 设置图例字体的大小和粗细
     
     axes = plt.gca()
-    axes.set_xlim([None, None])
+    # axes.set_xlim([None, None])  # 限定X轴范围
 
     plt.savefig('../result/maze1_dense_reward.png')
     plt.show()
