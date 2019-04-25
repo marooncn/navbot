@@ -4,7 +4,8 @@
     1. memorizing efficiently; 
     2. from memorizing to reasoning; 
     3. more powerful reasoning
-    The simulation experiment data is in the ./materials/record folder.
+    The simulation experiment data is in the ./materials/record folder. 
+    This work is under review of IEEE ITSC 2019.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
 
 ## Environment 
@@ -91,11 +92,6 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
 3. To reproduce the result, please change the related parameters in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) according to [config.txt](https://github.com/marooncn/navbot/blob/master/materials/record/config.txt).
 4. PPO is not a deterministic policy gradient algorithm, the action at every timestep is sampled according to the distribution. It can be seen as "noise" and it's useful for explorations and generalizations. If you want to use the best strategy after the model is trained, just change 'deterministic = True' in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) and the performance will be improved.
 
-## Cite
-If your find the work is helpful in your research, please cite the following papers:
-
-* [Using RGB Image as Visual Input for Mapless Robot Navigation](https://arxiv.org/ftp/arxiv/papers/1903/1903.09927.pdf) (IEEE ITSC 2019 , under review)
-* [Learning to Navigate in Indoor Environments: from Memorizing to Reasoning](https://arxiv.org/ftp/arxiv/papers/1904/1904.06933.pdf) (IEEE ITSC 2019 , under review)
 ## Reference
 [tensorforce](https://github.com/tensorforce/tensorforce)([blog](https://www.jiqizhixin.com/articles/2017-07-14-7?from=synced&keyword=tensorforce)) <br>
 [gym_gazebo](https://github.com/erlerobot/gym-gazebo/blob/master/gym_gazebo/envs/turtlebot/gazebo_circuit2c_turtlebot_camera_nn.py) <br>
