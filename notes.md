@@ -49,3 +49,6 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 [Neural map:  Structured memory for deep reinforcement learning](https://arxiv.org/pdf/1702.08360.pdf)(ICLR 2018) <br>
 [Semi-parametric topological memory for navigation](https://arxiv.org/pdf/1803.00653.pdf)([code](https://github.com/nsavinov/SPTM), ICLR 2018) <br>
 
+### Summary
+[tensorforce](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483685&idx=1&sn=c73822b5b719db40648700d4242499e3&chksm=ce0d8f1ef97a06082fd9032b42d8699bc19adce339f2435f5b6a61c0ea9beb1cfc926509a8e0&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
+[this work](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483714&idx=1&sn=449c6c1b00272d31b9093e8ae32e5ca5&chksm=ce0d8f79f97a066fcc5929cdbd0fc83ce8412eaf9d97a5c51ed16799d7e8a401027dc3bb6486&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
