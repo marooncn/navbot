@@ -41,6 +41,7 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 [reinforcement learning with unsupervised auxiliary tasks](https://arxiv.org/pdf/1611.05397.pdf)([code](https://github.com/miyosuda/unreal), ICLR 2017) <br>
 [Playing FPS Games with Deep Reinforcement Learning](https://arxiv.org/pdf/1609.05521.pdf)([code](https://github.com/glample/Arnold), AAAI 2017) <br>
 [Learning to navigate in complex environments](https://arxiv.org/pdf/1611.03673.pdf)(ICLR 2017) <br>
+[Motion Planning Among Dynamic, Decision-Making Agents with Deep Reinforcement Learning](https://arxiv.org/pdf/1805.01956.pdf)([code](https://github.com/mfe7/cadrl_ros)(IROS 2018) <br>
 #### internal representations
 (use more advanced memory mechanisms that support the construction of rich internal representations of the agent's environment) <br>
 [Control of memory,  active perception,  and action in Minecraft](https://web.eecs.umich.edu/~baveja/Papers/ICML2016.pdf)(ICML 2016) <br>
