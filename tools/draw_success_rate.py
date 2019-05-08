@@ -56,7 +56,7 @@ def main():
     f2.close()
 
     plt.plot(range(len(successes)), successes, color="blue", label="Proposed", linewidth=1.5)
-    plt.plot(range(len(successes2)), successes2, color="green", label="Benchmark", linewidth=1.5)
+    plt.plot(range(len(successes2)), successes2, color="green", label="Baseline", linewidth=1.5)
 
     size = 22
     plt.xticks(fontsize=size)  # 默认字体大小为10
