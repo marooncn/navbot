@@ -9,7 +9,7 @@
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
 
 ## Environment 
-<font face="Times New Roman">I built the environment for testing the algorithms.</font> <br>
+<font face="Times New Roman">I built the environment as benchmark for testing the algorithms.</font> <br>
 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/environment.PNG"  align='center' width="600">    
 <font face="Times New Roman">It has the following properties:</font> 
@@ -33,7 +33,7 @@
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
 ### VAE-based Proposed Planner Compared with  benchmark 
-1. The proposed is blue trajectory and the benchmark is green. <br>
+1. The proposed trajectory is blue and the baseline is green. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="300"> <br>
 2. The success rate comparision in maze1. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="500"> 
