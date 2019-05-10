@@ -61,6 +61,18 @@ Python: 2.7 <br>
 ROS: Kinetic  <br>
 Gazebo: 7   <br>
 tensorforce: https://github.com/tensorforce/tensorforce  <br>
+
+    # install tensorflow-gpu after cudnn and cuda are installed
+    pip install tensorflow-gpu==1.5.0
+    # or just use tensorflow-cpu if no Nvidia GPU, it can also work.
+    pip install tensorflow==1.5.0
+    # install ROS: http://wiki.ros.org/kinetic/Installation/Ubuntu
+    # install Gazebo 
+    sudo apt-get install gazebo7 libgazebo7-dev
+    # install tensorforce form source
+    git clone https://github.com/tensorforce/tensorforce.git
+    cd tensorforce
+    sudo pip install -e . --user
     
 #### Run
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
