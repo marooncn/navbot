@@ -32,7 +32,7 @@
 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
-### VAE-based Proposed Planner Compared with  benchmark 
+### VAE-based Proposed Planner Compared with  Baseline 
 1. The proposed trajectory is blue and the baseline is green. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="300"> <br>
 2. The success rate comparision in maze1. <br>
