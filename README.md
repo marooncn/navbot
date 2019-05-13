@@ -58,6 +58,7 @@ Success rate in maze1 <br>
 tensorflow: 1.5.0 <br>
 OS: Ubuntu 16.04  <br>
 Python: 2.7 <br>
+OpenCV: 3  <br>
 ROS: Kinetic  <br>
 Gazebo: 7   <br>
 tensorforce: https://github.com/tensorforce/tensorforce  <br>
@@ -66,6 +67,7 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
     pip install tensorflow-gpu==1.5.0
     # or just use tensorflow-cpu if no Nvidia GPU, it can also work.
     pip install tensorflow==1.5.0
+    # install OpenCV: https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html
     # install ROS: http://wiki.ros.org/kinetic/Installation/Ubuntu
     # install Gazebo 
     sudo apt-get install gazebo7 libgazebo7-dev
