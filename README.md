@@ -29,7 +29,7 @@
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
 
 #### Result 
-
+Train in maze1 and maze2. The following results are tested in maze3 to verify the ability of generalization.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
 ### VAE-based Proposed Planner Compared with  Baseline 
