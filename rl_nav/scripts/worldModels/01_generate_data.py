@@ -38,7 +38,7 @@ def main(args):
                 action['angular_vel'] = np.random.uniform(-1, 1)
                 # print(action)
                 obs_sequence.append(observation)
-                action_sequence.append(action)
+                action_sequence.append([action['linear_vel'], action['angular_vel']])
                 t += 1
 
                 observation, done, reward = GazeboMaze.execute(action)
