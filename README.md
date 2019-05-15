@@ -23,15 +23,16 @@
 Quickstart example code to use this benckmark navigation environment.
 
     import env
-    GazeboMaze = env.GazeboMaze(maze_id=1, continuous=True)
-    observation = GazeboMaze.reset()
+    maze0 = env.GazeboMaze(maze_id=0, continuous=True)
+    observation = maze0.reset()
     done = False
     while not done:
          # Stochastic strategy
          action = dict()
          action['linear_vel'] = np.random.uniform(0, 1)
          action['angular_vel'] = np.random.uniform(-1, 1)
-         observation, done, reward = GazeboMaze.execute(action)
+         observation, done, reward = maze0.execute(action)
+    maze0.close()
     
 ## Memorizing
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
