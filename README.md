@@ -18,7 +18,8 @@
 *  Gym-style Interface.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/Interface.PNG" align='center' width="500"> 
 
-*  Support ROS.
+*  Support ROS. 
+
 Quickstart example code to use this benckmark navigation environment.
 
     import env
@@ -26,7 +27,7 @@ Quickstart example code to use this benckmark navigation environment.
     observation = GazeboMaze.reset()
     done = False
     while not done:
-         # random policy
+         # Stochastic strategy
          action = dict()
          action['linear_vel'] = np.random.uniform(0, 1)
          action['angular_vel'] = np.random.uniform(-1, 1)
