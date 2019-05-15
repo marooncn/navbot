@@ -37,6 +37,7 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 (sensory input-> DNN -> action) <br>
 [learning to act by predicting the future](https://arxiv.org/pdf/1611.01779.pdf)([code](https://github.com/IntelVCL/DirectFuturePrediction), ICLR 2017) <br>
 [Target-driven visual navigation in indoor  scenes  using  deep  reinforcement  learning](https://arxiv.org/pdf/1609.05143.pdf)([code](https://github.com/yushu-liu/icra2017-visual-navigation), ICRA 2017) <br>
+[Visual semantic navigation using scene priors](https://arxiv.org/pdf/1810.06543.pdf)(ICLR 2019) <br>
 #### equip with short-term memory
 [reinforcement learning with unsupervised auxiliary tasks](https://arxiv.org/pdf/1611.05397.pdf)([code](https://github.com/miyosuda/unreal), ICLR 2017) <br>
 [Playing FPS Games with Deep Reinforcement Learning](https://arxiv.org/pdf/1609.05521.pdf)([code](https://github.com/glample/Arnold), AAAI 2017) <br>
@@ -49,6 +50,8 @@ Our final gated-LSTM agent achieves a success rate of 35.8% on 50 unseen environ
 [Unifying map and landmark based representations for visual navigation](https://arxiv.org/pdf/1712.08125.pdf)(arXiv 2017) <br>
 [Neural map:  Structured memory for deep reinforcement learning](https://arxiv.org/pdf/1702.08360.pdf)(ICLR 2018) <br>
 [Semi-parametric topological memory for navigation](https://arxiv.org/pdf/1803.00653.pdf)([code](https://github.com/nsavinov/SPTM), ICLR 2018) <br>
+#### Meta-Learning
+[Learning to Learn How to Learn: Self-Adaptive Visual Navigation using Meta-Learning](https://arxiv.org/pdf/1812.00971.pdf)([code](https://github.com/allenai/savn), CVPR 2019) <br>
 
 ### Summary
 [tensorforce](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483685&idx=1&sn=c73822b5b719db40648700d4242499e3&chksm=ce0d8f1ef97a06082fd9032b42d8699bc19adce339f2435f5b6a61c0ea9beb1cfc926509a8e0&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
