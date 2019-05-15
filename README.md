@@ -19,7 +19,19 @@
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/Interface.PNG" align='center' width="500"> 
 
 *  Support ROS.
+Quickstart example code to use this benckmark navigation environment.
 
+    import env
+    GazeboMaze = env.GazeboMaze(maze_id=1, continuous=True)
+    observation = GazeboMaze.reset()
+    done = False
+    while not done:
+         # random policy
+         action = dict()
+         action['linear_vel'] = np.random.uniform(0, 1)
+         action['angular_vel'] = np.random.uniform(-1, 1)
+         observation, done, reward = GazeboMaze.execute(action)
+    
 ## Memorizing
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
 
@@ -94,7 +106,8 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
     python E2E_PPO_rnn.py
 #### Details
 1. The default environment is maze1, you need to change maze_id in [nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) and [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) if you want change the environment. <br>
-2. maze1 and maze2 are speeded up 10 times to train, if you want speed up other environments, just change 
+2. To execute [01_generate_data.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/worldModels/01_generate_data.py) to generate data, you need to comment the goal-related code in [nav_gazebo.launch](https://github.com/marooncn/navbot/blob/master/rl_nav/launch/nav_gazebo.launch) and [env.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/env.py). <br>
+3. maze1 and maze2 are speeded up 10 times to train, if you want speed up other environments, just change 
 
        <max_step_size>0.001</max_step_size>
        <real_time_factor>1</real_time_factor>
@@ -103,8 +116,8 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
        <max_step_size>0.01</max_step_size>
        <!-- <real_time_factor>1</real_time_factor> -->
    in the environment file in [worlds](https://github.com/marooncn/navbot/tree/master/rl_nav/worlds).
-3. To reproduce the result, please change the related parameters in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) according to [config.txt](https://github.com/marooncn/navbot/blob/master/materials/record/config.txt).
-4. PPO is not a deterministic policy gradient algorithm, the action at every timestep is sampled according to the distribution. It can be seen as "noise" and it's useful for explorations and generalizations. If you want to use the best strategy after the model is trained, just change 'deterministic = True' in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) and the performance will be improved.
+4. To reproduce the result, please change the related parameters in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) according to [config.txt](https://github.com/marooncn/navbot/blob/master/materials/record/config.txt).
+5. PPO is not a deterministic policy gradient algorithm, the action at every timestep is sampled according to the distribution. It can be seen as "noise" and it's useful for explorations and generalizations. If you want to use the best strategy after the model is trained, just change 'deterministic = True' in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) and the performance will be improved.
 
 ## Reference
 [tensorforce](https://github.com/tensorforce/tensorforce)([blog](https://www.jiqizhixin.com/articles/2017-07-14-7?from=synced&keyword=tensorforce)) <br>
