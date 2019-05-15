@@ -32,6 +32,7 @@ Quickstart example code to use this benckmark navigation environment.
          action['linear_vel'] = np.random.uniform(0, 1)
          action['angular_vel'] = np.random.uniform(-1, 1)
          observation, done, reward = maze0.execute(action)
+         print(action, reward)
     maze0.close()
     
 ## Memorizing
