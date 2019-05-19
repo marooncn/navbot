@@ -20,7 +20,7 @@
 
 *  Support ROS. 
 
-Quickstart example code to use this benckmark navigation environment.
+Quickstart example code to use this benckmark.
 
     import env
     maze0 = env.GazeboMaze(maze_id=0, continuous=True)
@@ -43,8 +43,10 @@ Quickstart example code to use this benckmark navigation environment.
 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
 
-#### Result 
-Train in maze1 and maze2. The following results are tested in maze3 to verify the ability of generalization.
+#### Training & Result 
+Train in maze1 and maze2. The kl_tolerace is set to 0.5 (We stop optimizing for KL loss term once it is lower than some level, rather than letting it go to near zero) and latent dim is 32, thus the total loss is trained as close as possible to 16.
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE_training.png" align='center' width="500"> <br> 
+The following results are tested in maze3 to verify the ability of generalization.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
 ### VAE-based Proposed Planner Compared with  Baseline 
