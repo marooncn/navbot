@@ -4,7 +4,7 @@ a revised compact version of official turtlebot_description package to check if 
 
 * Other changes
 
-The width and height of image captured is scaled to 64 and 48 respectively. The size can be change in [turtlebot_gazebo.urdf.xacro](https://github.com/marooncn/navbot/blob/master/turtlebot_description/urdf/turtlebot_gazebo.urdf.xacro).
+The width and height of image captured is 64 and 48 respectively. The size can be change in [turtlebot_gazebo.urdf.xacro](https://github.com/marooncn/navbot/blob/master/turtlebot_description/urdf/turtlebot_gazebo.urdf.xacro).
 
 * To use it you need delete the official turtlebot_description
       
