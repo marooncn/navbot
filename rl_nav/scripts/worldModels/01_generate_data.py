@@ -12,18 +12,20 @@ if not os.path.exists(dir_name):
 
 
 def main(args):
-    record_frames = args.record_frames
     maze_id = args.maze_id
     GazeboMaze = env.GazeboMaze(maze_id=maze_id, continuous=True)
     print("Generating data for env maze{}".format(maze_id))
+    file_number = args.file_number
+    total_episodes = args.total_episodes
     # random_generated_int = np.random.randint(0, 2 ** 31 - 1)
     # np.random.seed(random_generated_int)
-    for i in range(130):
+    time_steps = args.time_steps
+    for i in range(file_number):
         total_frames = 0
         obs_data = []
         action_data = []
         episode = 0
-        while total_frames < record_frames:
+        while episode < total_episodes:
             print('---------------------------')
             obs_sequence = []
             action_sequence = []
@@ -32,7 +34,7 @@ def main(args):
             done = False
             t = 0
 
-            while not done:
+            while t < time_steps:
                 action = dict()
                 action['linear_vel'] = np.random.uniform(0, 1)
                 action['angular_vel'] = np.random.uniform(-1, 1)
@@ -59,7 +61,10 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate new training data')
-    parser.add_argument('--record_frames', type=int, default=50000, help='how many frames you need to record')
-    parser.add_argument('--maze_id', type=int, default=0, help='which maze ')
+    parser.add_argument('--maze_id', type=int, default=2, help='which maze ')
+    parser.add_argument('--file_number', type=int, default=300, help='total number of files to generate')
+    parser.add_argument('--total_episodes', type=int, default=300, help='how many episodes you need to record in a file')
+    parser.add_argument('--time_steps', type=int, default=10, help='how many timesteps in an episode?')
+
     args = parser.parse_args()
     main(args)
