@@ -50,7 +50,7 @@ def main(args):
             obs_data.append(obs_sequence)
             action_data.append(action_sequence)
             print("{}th collections".format(i))
-            print("Episode {} finished after {} timesteps".format(episode, t + 1))
+            print("Episode {} finished after {} timesteps".format(episode, t))
             print("Current dataset contains {} observations".format(total_frames))
 
         print("Saving dataset ...")
@@ -61,9 +61,9 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate new training data')
-    parser.add_argument('--maze_id', type=int, default=2, help='which maze ')
+    parser.add_argument('--maze_id', type=int, default=1, help='which maze ')
     parser.add_argument('--file_number', type=int, default=300, help='total number of files to generate')
-    parser.add_argument('--total_episodes', type=int, default=300, help='how many episodes you need to record in a file')
+    parser.add_argument('--total_episodes', type=int, default=3000, help='how many episodes you need to record in a file')
     parser.add_argument('--time_steps', type=int, default=10, help='how many timesteps in an episode?')
 
     args = parser.parse_args()
