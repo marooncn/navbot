@@ -1,5 +1,4 @@
-################################## Dense ##################################
-input_dim = (48, 64, 3)
+################################## parameters of task 1: memorizing ##################################
 # reward parameter
 r_arrive = 100
 r_collision = -50 
@@ -35,8 +34,7 @@ w_max = 1.2  # rad/s
 latent_vector_dim = 32
 vae_weight = path + '/scripts/worldModels/models/vae_weights_laptop.h5'
 
-################################## Rnn ##################################
-input_dim = (48, 64, 3)
+########################## parameters of task 2: from memorizing to reasoning ###########################
 # reward parameter
 r_arrive = 100
 r_collision = -50 
