@@ -48,7 +48,7 @@ w_max = 1.0  # 1.2  # rad/s
 
 # VAE related
 latent_vector_dim = 32
-vae_weight = path + '/scripts/worldModels/models/vae_weights_laptop.h5'
+vae_weight = path + '/scripts/worldModels/models/vae_weights.h5'
 
 # RNN related
 dir_name = 'maze1_rnn_data'  # which dir to save the rnn data
