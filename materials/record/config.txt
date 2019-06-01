@@ -63,7 +63,6 @@ test_space.append(test_space_nav2)
 start_space.append(start_space_nav0)
 start_space.append(start_space_nav1)
 start_space.append(start_space_nav2)
-start_space.append(start_space_nav3)
 
 Cd = 0.354/2   #  =r 
 # max linear velocity
