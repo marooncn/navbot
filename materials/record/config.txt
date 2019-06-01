@@ -54,6 +54,17 @@ test_space_nav2 = [goal_space_nav2[-1], goal_space_nav2[-2]]
 start_space_nav0 = []
 start_space_nav1 = [[-0.4, -2.6]]   # 4.0/3*math.pi,set 'theta = 4.0/3*math.pi' in reset function of env.py
 start_space_nav2 = [[0.65, -3.0]]   # ,1.0/2*math.pi, set 'theta = 1.0/2*math.pi' in reset function of env.py
+goal_space.append(goal_space_nav0)
+goal_space.append(goal_space_nav1)
+goal_space.append(goal_space_nav2)
+test_space.append(test_space_nav0)
+test_space.append(test_space_nav1)
+test_space.append(test_space_nav2)
+start_space.append(start_space_nav0)
+start_space.append(start_space_nav1)
+start_space.append(start_space_nav2)
+start_space.append(start_space_nav3)
+
 Cd = 0.354/2   #  =r 
 # max linear velocity
 v_max = 0.3    #  m/s
