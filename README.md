@@ -39,7 +39,7 @@ Quickstart example code to use this benckmark.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
 
 ### VAE
-#### Structure 
+#### VAE Structure 
 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
 
@@ -48,6 +48,12 @@ Train in maze1 and maze2. The kl_tolerace is set to 0.5 (We stop optimizing for 
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE_training.png" align='center' width="500"> <br> 
 The following results are tested in maze3 to verify the ability of generalization.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
+
+#### Planner
+VAE-based planner  <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE-DRL.png" align='center' width="300">  <br>
+Baseline  <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="300"> 
 
 ### VAE-based Proposed Planner Compared with  Baseline 
 1. The proposed trajectory is blue and the baseline is green. <br>
