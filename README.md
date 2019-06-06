@@ -40,7 +40,6 @@ Quickstart example code to use this benckmark.
 
 ### VAE
 #### VAE Structure 
-
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
 
 #### Training & Result 
@@ -56,6 +55,7 @@ Baseline  <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="300"> 
 
 ### VAE-based Proposed Planner Compared with  Baseline 
+
 1. The proposed trajectory is blue and the baseline is green. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/memorize_trajectory.PNG" align='center' width="300"> <br>
 2. The success rate comparision in maze1. <br>
@@ -81,9 +81,6 @@ network structure <br>
 ### Result
 Success rate in maze1 <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_rnn_success.png" width="500"> 
-
-
-
 
 ## Install
 #### Ddependencies
