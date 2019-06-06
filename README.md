@@ -35,7 +35,7 @@ Quickstart example code to use this benckmark.
          print(action, reward)
     maze0.close()
     
-## Memorizing
+## 1. Memorizing
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
 
 ### VAE
@@ -70,7 +70,7 @@ Baseline  <br>
 
 That is, the proposed motion planner not only has much better sample-efficience, but also it has better performance. Actually, the shortest path in two mazes are both found by proposed motion planner (26 timesteps in maze1 and 29 time steps in maze2 with acceleration  in simulation).
 
-## From Memorizing to Reasoning
+## 2. From Memorizing to Reasoning
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/PPO_rnn_nav2.gif" align='center' width="500"> 
 
 ### Stacked LSTM and network structure
