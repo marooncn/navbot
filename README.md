@@ -55,6 +55,15 @@ The following results are tested in maze3 to verify the ability of generalizatio
 2. The success rate comparision in maze1. <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_dense_success.png" width="500"> 
 
+3. Performance comparision <br>
+
+ |   SPL   |   Benchmark |  Proposed |
+ |---------|-------------|-----------|
+ |  maze1  |    0.702    |   0.703   |
+ |  maze2  |    0.611    |   0.626   |
+
+ That is, The proposed motion planner not only has the more sample-efficience, but also has the better performance, Actually the     shortest path in two mazes are both found by proposed motion planner (26 timesteps in maze1 and 29 time steps in maze2 with acceleration  in simulation).
+
 ## From Memorizing to Reasoning
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/PPO_rnn_nav2.gif" align='center' width="500"> 
 
