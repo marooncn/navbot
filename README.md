@@ -40,9 +40,9 @@ Quickstart example code to use this benckmark.
 
 ### VAE-based planner
 #### VAE Structure and Training
-The designed VAE strcture is shown in the following. Train it in maze1 and maze2. The kl_tolerace is set to 0.5 (We stop optimizing for KL loss term once it is lower than some level, rather than letting it go to near zero) and latent dim is 32, thus the total loss is trained as close as possible to 16.
+The designed VAE strcture is shown in the lower left figure. Train it in maze1 and maze2. The kl_tolerace is set to 0.5 (We stop optimizing for KL loss term once it is lower than some level, rather than letting it go to near zero) and latent dim is 32, thus the total loss is trained as close as possible to 16.
 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200">  <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE_training.png" align='center' width="600"> <br> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="180">     <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE_training.png" align='center' width="500"> <br> 
 The following results are tested in maze3 to verify the ability of generalization.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
@@ -73,7 +73,7 @@ That is, the proposed motion planner not only has much better sample-efficience,
 Stacked LSTM <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/stacked%20LSTM.png" width="500"> <br>
 network structure <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/rnn.png" width="400"> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/rnn.png" width="300"> 
 ### Result
 Success rate in maze1 <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/result/maze1_rnn_success.png" width="500"> 
