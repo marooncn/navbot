@@ -39,16 +39,14 @@ Quickstart example code to use this benckmark.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/E2E_PPO_nav2.gif" align='center' width="500"> 
 
 ### VAE-based planner
-#### VAE Structure 
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200"> 
+#### VAE Structure and Training
+The designed VAE strcture is shown in the following. Train it in maze1 and maze2. The kl_tolerace is set to 0.5 (We stop optimizing for KL loss term once it is lower than some level, rather than letting it go to near zero) and latent dim is 32, thus the total loss is trained as close as possible to 16.
 
-#### Train VAE 
-Train in maze1 and maze2. The kl_tolerace is set to 0.5 (We stop optimizing for KL loss term once it is lower than some level, rather than letting it go to near zero) and latent dim is 32, thus the total loss is trained as close as possible to 16.
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE_training.png" align='center' width="500"> <br> 
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae.png" align='center' width="200">  <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE_training.png" align='center' width="600"> <br> 
 The following results are tested in maze3 to verify the ability of generalization.
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
-#### Network Structure 
+#### Planner Structure 
 VAE-based planner & Baseline network structure  <br>
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE-DRL.png" align='center' width="300">  <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="300"> 
 
