@@ -49,10 +49,8 @@ The following results are tested in maze3 to verify the ability of generalizatio
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/vae_show.png" align='center' width="500"> 
 
 #### Planner
-VAE-based planner  <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE-DRL.png" align='center' width="300">  <br>
-Baseline  <br>
-<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="300"> 
+VAE-based planner & Baseline network structure  <br>
+<img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/VAE-DRL.png" align='center' width="300">  <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/e2e.png" align='center' width="300"> 
 
 ### VAE-based Proposed Planner Compared with  Baseline 
 
@@ -136,9 +134,9 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
 4. To reproduce the result, please change the related parameters in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) according to [config.txt](https://github.com/marooncn/navbot/blob/master/materials/record/config.txt).
 5. PPO is not a deterministic policy gradient algorithm, the action at every timestep is sampled according to the distribution. It can be seen as "noise" and it's useful for explorations and generalizations. If you want to use the best strategy after the model is trained, just change 'deterministic = True' in [config.py](https://github.com/marooncn/navbot/blob/master/rl_nav/scripts/config.py) and the performance will be improved.
 
-## Summary
-[tensorforce](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483685&idx=1&sn=c73822b5b719db40648700d4242499e3&chksm=ce0d8f1ef97a06082fd9032b42d8699bc19adce339f2435f5b6a61c0ea9beb1cfc926509a8e0&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
-[this work](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483714&idx=1&sn=449c6c1b00272d31b9093e8ae32e5ca5&chksm=ce0d8f79f97a066fcc5929cdbd0fc83ce8412eaf9d97a5c51ed16799d7e8a401027dc3bb6486&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
+## Blog
+[Introduction to tensorforce](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483685&idx=1&sn=c73822b5b719db40648700d4242499e3&chksm=ce0d8f1ef97a06082fd9032b42d8699bc19adce339f2435f5b6a61c0ea9beb1cfc926509a8e0&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
+[Introduction to this work](https://mp.weixin.qq.com/s?__biz=Mzg2MjExNjY5Mg==&mid=2247483714&idx=1&sn=449c6c1b00272d31b9093e8ae32e5ca5&chksm=ce0d8f79f97a066fcc5929cdbd0fc83ce8412eaf9d97a5c51ed16799d7e8a401027dc3bb6486&mpshare=1&scene=1&srcid=&pass_ticket=9Mwfi8nrJduWesFYZOvfaN1uXqSrd%2B2CuQl%2FzqbUNmBAfv%2Bx%2BxgJyw8xSQfYkcsl#rd)(Chinese) <br>
 
 ## Reference
 [tensorforce](https://github.com/tensorforce/tensorforce)([blog](https://www.jiqizhixin.com/articles/2017-07-14-7?from=synced&keyword=tensorforce)) <br>
