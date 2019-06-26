@@ -5,7 +5,7 @@
     2. from memorizing to reasoning; 
     3. more powerful reasoning
     The experiment data is in ./materials/record folder. 
-    This work is under review of IEEE ITSC 2019.
+
 <img alt="" src="https://github.com/marooncn/navbot/blob/master/materials/images/mapless%20motion%20planner.png"  align='center' width="600"> <br>
 
 ## Environment 
