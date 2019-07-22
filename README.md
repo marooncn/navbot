@@ -96,10 +96,7 @@ tensorforce: https://github.com/tensorforce/tensorforce  <br>
     # install ROS: http://wiki.ros.org/kinetic/Installation/Ubuntu
     # install Gazebo 
     sudo apt-get install gazebo7 libgazebo7-dev
-    # install tensorforce form source
-    git clone https://github.com/tensorforce/tensorforce.git
-    cd tensorforce
-    sudo pip install -e . --user
+    # install old version that supports python2 of tensorforce form source
     
 #### Run
     sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
